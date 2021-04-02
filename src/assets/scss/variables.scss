@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap');
+
+// All variable changes need to happen before @import
+$body-font-family: 'Source Sans Pro', sans-serif !important;
+$heading-font-family: $body-font-family !important;
+
+// Font sizes
+$font24: 24px;
+$font22: 22px;
+$font21: 21px;
+$font16: 16px;
+$font15: 15px;
+$font14: 14px;
+$font12: 12px;
+$paragraphText: 18px;
+$defaultColor: #00a4c5;
+
+$theme-colors: (
+  // Primary
+  'primaryBase': #00a4c5,
+  // Menu
+  'primaryDarken1': #18bdc0,
+  // Menu
+  'primaryDarken2': #13a3a1,
+  // Hover color
+  'secondaryBase': #33c3d0,
+  // Active color for buttons, links..
+  'accent': #008b9d,
+  // Font & icon color
+  'infoBase': #3DBAFF,
+  // Background color
+  'infoLighten1': #D9F0FF,
+  // Font & icon color
+  'successBase': #52D870,
+  // Background color
+  'successLighten1': #DBF7E2,
+  // Font & icon color
+  'warningBase': #FF8524,
+  // Background color
+  'warningLighten1': #FFE6D3,
+  // Font & icon color
+  'errorBase': #FF6C6E,
+  // Background color
+  'errorLighten1': #FFE3E1,
+  // Black. Main color for fonts and selected icons
+  'tertiaryBase': #363636,
+  // Extra-dark grey. For font style caption
+  'tertiaryLighten1': #717171,
+  // Used in bigger visual elements
+  'tertiaryLighten2': #B8BABD,
+  // Background for filled cards
+  'tertiaryLighten3': #DFDFE0,
+  // Grey. Used in some icons and UI elements
+  'tertiaryLighten4': #E8E8E8,
+  // Border for cards with shadow
+  'tertiaryLighten5': #EFF1F1,
+  // Line & Border Outline. Used for lines & borders e.g. cards border
+  'tertiaryLighten6': #F8F8F8
+);
+
+:export {
+  @each $key, $value in $theme-colors {
+    #{unquote($key)}: $value;
+  }
+}
