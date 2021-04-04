@@ -1,4 +1,6 @@
 @import "./variables";
+@import "./mixins";
+@import "./typography";
 
 //specificity needs to be taken into consideration for some components
 //because !important has been assigned to their css

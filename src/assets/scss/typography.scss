@@ -1,0 +1,52 @@
+
+// Headline-1
+.display-4{
+  @include font-style(color('primary'), 48px, 700, 57.6px);
+}
+// Headline-2
+.display-3 {
+  @include font-style(color('primary'), 36px, 700, 43.2px);
+}
+// Headline-3
+.display-2 {
+  @include font-style(color('primary'), 30px, 700, 36px);
+}
+// Headline-4
+.display-1 {
+  @include font-style(color('primary'), 24px, 700, 33.6px);
+}
+// Headline-5
+.headline {
+  @include font-style(color('primary'), 18px, 700, 28.8px);
+}
+// Headline-6
+.title {
+  @include font-style(color('primary'), 13px, 700, 24px);
+}
+// Subheadline-1
+.subtitle-1 {
+  @include font-style(color('primary'), 18px, 600, 28.8px);
+}
+// Subheadline-2
+.subtitle-2 {
+  @include font-style(color('primary'), 15px, 600, 24px);
+}
+// Body Large
+.body-1 {
+  @include font-style(color('primary'), 18px, 400, 28.8px);
+}
+// Body normal
+.body-2 {
+  @include font-style(color('primary'), 15px, 400, 24px);
+}
+// Body small
+.body-3 {
+  @include font-style(color('primary'), 13px, 400, 20.8px);
+}
+// Caption
+.caption {
+  @include font-style(color('tertiaryLighten1'), 13px, 400, 20.8px);
+  &.text--white {
+    @include font-style(white, 13px, 400, 20.8px);
+  }
+}
