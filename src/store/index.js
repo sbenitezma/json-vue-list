@@ -1,4 +1,3 @@
-import axios from "axios";
 import Vue from "vue";
 import Vuex from "vuex";
 import db from "@/api/db/voices.json";
@@ -7,21 +6,14 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    cardList: true,
-    apps: [],
+    originApps: [],
+    showApps: [],
+    currentTags: [],
+    titleFilter: "",
+    tagFilter: [],
     loading: true,
-    locales: ["en", "es"],
-    locale: "en",
   },
   mutations: {
-    /**
-     * Set apps.json apps
-     * @param state
-     * @param apps
-     */
-    setApps(state, apps) {
-      state.apps = apps;
-    },
     /**
      * Set page loading
      * @param state
@@ -30,8 +22,30 @@ export default new Vuex.Store({
     setLoading(state, loading) {
       state.loading = loading;
     },
+    /**
+     * Set apps.json apps
+     * @param state
+     * @param apps
+     */
+    setOriginApps(state, apps) {
+      state.originApps = apps;
+    },
+    /**
+     * Set current display apps
+     * @param state
+     * @param apps
+     */
+    setShowApps(state, apps) {
+      state.showApps = apps;
+    },
   },
   actions: {
+    // selectActive(apps) {},
+    // selectRandom() {
+    //   this.selectActive(showApps);
+    //   this.selectActive(originApps);
+    // },
+    resetShowApps() {},
     /**
      * Load all Apps API info
      * @param commit
@@ -39,17 +53,27 @@ export default new Vuex.Store({
      * @constructor
      */
     async LOAD_APPS({ commit }) {
-      await axios
-        .get(db)
-        .then((response) => {
-          commit("setApps", response.data);
-          commit("setLoading", false);
-        })
-        .catch(() => {
-          // commit("setApps", apps);
-          commit("setLoading", false);
+      let apps = [];
+      if (db) {
+        apps = db;
+        apps.forEach((app) => {
+          app.favorite = false;
+          app.active = false;
         });
+        commit("setOriginApps", apps);
+        commit("setShowApps", apps);
+        commit("setLoading", false);
+      } else {
+        commit("setLoading", false);
+      }
     },
   },
-  getters: {},
+  getters: {
+    favoriteApps: (state) => {
+      return state.originApps.filter((app) => app.favorite);
+    },
+    getTags(apps) {
+      return apps.filter((app) => app.tags);
+    },
+  },
 });
