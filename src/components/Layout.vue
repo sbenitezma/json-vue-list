@@ -34,7 +34,7 @@ export default {
   },
   data: () => ({
     tab: null,
-    items: ["Voice Apps", "Favorite Apps"],
+    items: ["Voice Apps", "Favourite Apps"],
   }),
   computed: {
     ...mapState(["loading"]),

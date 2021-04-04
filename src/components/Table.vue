@@ -10,7 +10,7 @@
     <v-data-table
       v-model="selected"
       :headers="headers"
-      :items="favoriteApps"
+      :items="favouriteApps"
       :search="search"
       :single-select="true"
       item-key="name"
@@ -67,22 +67,23 @@
             <v-icon dark>mdi-heart</v-icon>
           </v-btn>
         </template>
-        <template v-else>
-          <v-btn fab dark small @click="alert(props.item)">
-            <v-icon dark>mdi-heart</v-icon>
-          </v-btn>
-        </template>
       </template>
-      <template v-slot:item.favorite="props">
+      <template v-slot:item.favourite="props">
         <template v-if="props.item">
-          <v-btn fab dark small @click="alert(props.item)">
-            <v-icon dark>mdi-heart</v-icon>
-          </v-btn>
-        </template>
-        <template v-else>
-          <v-btn fab dark small @click="alert(props.item)">
-            <v-icon dark>mdi-heart</v-icon>
-          </v-btn>
+          <Icon
+            maxHeight="20px"
+            maxWidth="20px"
+            v-if="props.item.favourite"
+            name="voice-favourite"
+            @clickAction="setFavourite(props.item)"
+          ></Icon>
+          <Icon
+            maxHeight="20px"
+            maxWidth="20px"
+            v-else
+            name="voice-favourite-off"
+            @clickAction="setFavourite(props.item)"
+          ></Icon>
         </template>
       </template>
     </v-data-table>
@@ -90,10 +91,13 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
+import Icon from "@/components/Icon";
 
 export default {
+  name: "Table",
+  components: { Icon },
   computed: {
-    ...mapGetters(["favoriteApps"]),
+    ...mapGetters(["favouriteApps"]),
   },
   watch: {
     pagination: {
@@ -116,7 +120,12 @@ export default {
       search: "",
       headers: [
         { text: "Active", value: "active", sortable: false, width: "10%" },
-        { text: "Favorite", value: "favorite", sortable: false, width: "10%" },
+        {
+          text: "Favourite",
+          value: "favourite",
+          sortable: false,
+          width: "10%",
+        },
         {
           text: "Icon",
           align: "left",
@@ -147,8 +156,11 @@ export default {
     };
   },
   methods: {
+    /**
+     * Get Favourite Apps
+     */
     getApps() {
-      let items = this.favoriteApps;
+      let items = this.favouriteApps;
       const { sortBy, descending, page, itemsPerPage } = this.pagination;
       this.totalDesserts = items.length;
       if (sortBy) {
@@ -172,6 +184,9 @@ export default {
         items = items.slice((page - 1) * itemsPerPage, page * itemsPerPage);
       }
     },
+    /**
+     * Change table sorting
+     */
     changeSort(column) {
       if (this.pagination.sortBy === column) {
         this.pagination.descending = !this.pagination.descending;
@@ -180,6 +195,11 @@ export default {
         this.pagination.descending = false;
       }
     },
+    /**
+     * Get Image of app
+     * @param item
+     * @returns {string|*}
+     */
     getAppIcon(item) {
       let appIcon = require(`@/assets/images/${item.icon}`);
       if (appIcon) {
@@ -188,7 +208,13 @@ export default {
         return `https://source.unsplash.com/collection/3727392/300x300?sig=${item}`;
       }
     },
+    /**
+     * Remove favourite app from list
+     * @param item
+     */
+    setFavourite(item) {
+      this.$store.dispatch("setFavourite", item);
+    },
   },
-  components: {},
 };
 </script>

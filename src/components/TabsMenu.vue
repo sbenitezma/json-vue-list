@@ -19,7 +19,7 @@
       </v-tab-item>
       <v-tab-item>
         <v-card>
-          <v-card-title class="headline"> Favorite APPS </v-card-title>
+          <v-card-title class="headline"> Favourite APPS </v-card-title>
           <v-card-text>
             <Table />
           </v-card-text>
@@ -38,7 +38,7 @@ export default {
   name: "TabsMenu",
   data: () => ({
     tab: null,
-    items: ["Voice Apps", "Favorite Apps"],
+    items: ["Voice Apps", "Favourite Apps"],
   }),
   computed: {
     ...mapState(["originApps"]),
