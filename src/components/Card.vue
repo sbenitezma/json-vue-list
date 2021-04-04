@@ -8,16 +8,22 @@
         max-width="350"
         max-height="350"
       >
-        <v-btn
-          class="ma-3"
-          fab
-          icon
-          height="20px"
-          style="float: right"
-          width="20px"
-        >
-          <v-icon>mdi-heart</v-icon>
-        </v-btn>
+        <Icon
+          maxHeight="40px"
+          maxWidth="40px"
+          customClass="float: right"
+          v-if="item.favourite"
+          name="voice-favourite"
+          @clickAction="setFavourite()"
+        ></Icon>
+        <Icon
+          maxHeight="40px"
+          maxWidth="40px"
+          customClass="float: right"
+          v-else
+          name="voice-favourite-off"
+          @clickAction="setFavourite()"
+        ></Icon>
         <div class="d-flex justify-space-between">
           <v-avatar class="ma-0" size="80" tile>
             <v-img
@@ -43,13 +49,24 @@
   </v-row>
 </template>
 <script>
+import Icon from "@/components/Icon";
 export default {
   name: "Card",
-  props: ["item", "id"],
-  created() {},
+  components: { Icon },
+  props: {
+    item: {
+      type: Object,
+      required: true,
+    },
+    id: {
+      type: [String, Number],
+      required: true,
+    },
+  },
   data() {
     return {};
   },
+  created() {},
   methods: {
     truncateString(str, num) {
       if (str.length > num) {
@@ -65,6 +82,9 @@ export default {
       } else {
         return `https://source.unsplash.com/collection/3727392/300x300?sig=${item}`;
       }
+    },
+    setFavourite() {
+      this.$store.dispatch("setFavourite", this.item);
     },
   },
 };
