@@ -40,6 +40,10 @@ export default {
     ...mapState(["loading"]),
   },
   methods: {
+    /**
+     * Get Async Voice Apps
+     * @returns {Promise<void>}
+     */
     async fetchApps() {
       await this.$store.dispatch("LOAD_APPS");
     },

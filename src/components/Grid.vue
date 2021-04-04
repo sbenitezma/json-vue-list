@@ -30,6 +30,12 @@ export default {
     return {};
   },
   methods: {
+    /**
+     * Short too long strings
+     * @param str
+     * @param num
+     * @returns {string|*}
+     */
     truncateString(str, num) {
       if (str.length > num) {
         return str.slice(0, num) + "...";
@@ -37,6 +43,11 @@ export default {
         return str;
       }
     },
+    /**
+     * Get Apps images
+     * @param item
+     * @returns {string|*}
+     */
     getAppIcon(item) {
       let appIcon = require(`@/assets/images/${item.icon}`);
       if (appIcon) {
@@ -45,6 +56,9 @@ export default {
         return `https://source.unsplash.com/collection/3727392/300x300?sig=${item}`;
       }
     },
+    /**
+     * Set Favourite app
+     */
     setFavourite(item) {
       this.$store.commit("setFavourite", item);
     },

@@ -42,6 +42,11 @@ export default {
     },
   },
   methods: {
+    /**
+     * Get Custom icon by name
+     * @param name
+     * @returns {string|*}
+     */
     getIcon(name) {
       let appIcon = require(`@/assets/icons/${name}.svg`);
       if (appIcon) {
@@ -50,6 +55,9 @@ export default {
         return `https://source.unsplash.com/collection/3727392/300x300?sig=${name}`;
       }
     },
+    /**
+     * Emit custom action to parent component (active/favourite)
+     */
     setAction() {
       this.$emit("clickAction");
     },
