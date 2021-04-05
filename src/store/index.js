@@ -20,7 +20,7 @@ export default new Vuex.Store({
      * @param app
      */
     setActive({ commit }, app) {
-      commit("setAction", { action: "active", elem: app });
+      commit("setActive", app);
     },
     /**
      * Set favourite app
@@ -28,13 +28,12 @@ export default new Vuex.Store({
      * @param app
      */
     setFavourite({ commit }, app) {
-      commit("setAction", { action: "favourite", elem: app });
+      commit("setFavourite", app);
     },
     // selectRandom() {
     //   this.selectActive(showApps);
     //   this.selectActive(originApps);
     // },
-    resetShowApps() {},
     /**
      * Load all Apps API info
      * @param commit
@@ -60,40 +59,55 @@ export default new Vuex.Store({
   },
   mutations: {
     /**
+     * State
+     * @param state
+     */
+    refreshShowApps(state) {
+      this.commit("setLoading", true);
+      state.showApps = JSON.parse(JSON.stringify(state.originApps));
+      this.commit("setLoading", false);
+    },
+    /**
      * Set Active App
      * @param state
      * @param payload
      */
-    setAction(state, payload) {
-      let showIndex = -1;
-      let originIndex = 0;
-      if (payload.action === "favourite") {
-        showIndex = state.showApps.findIndex(
-          (obj) => obj.id === payload.elem.id
-        );
-        originIndex = state.originApps.findIndex(
-          (obj) => obj.id === payload.elem.id
-        );
-      } else {
-        let activeAppIdx = state.showApps.findIndex(
+    setActive(state, payload) {
+      if (payload.active === false) {
+        let originActiveAppIdx = state.originApps.findIndex(
           (obj) => obj.active === true
         );
-
-        if (activeAppIdx < 0) {
-          showIndex = state.showApps.findIndex((obj) => obj.id === payload.id);
-          originIndex = state.originApps.findIndex(
-            (obj) => obj.id === payload.id
-          );
+        if (originActiveAppIdx >= 0) {
+          state.originApps[originActiveAppIdx].active = false;
         }
+        let currentId = state.originApps.findIndex(
+          (obj) => obj.id === payload.id
+        );
+        if (currentId >= 0) {
+          state.originApps[currentId].active = true;
+        }
+        this.commit("refreshShowApps");
+        // this.applyFilters();
       }
+    },
+    /**
+     * Set Favourite App
+     * @param state
+     * @param payload
+     */
+    setFavourite(state, payload) {
+      let showIndex = state.showApps.findIndex((obj) => obj.id === payload.id);
+      let originIndex = state.originApps.findIndex(
+        (obj) => obj.id === payload.id
+      );
       if (showIndex >= 0) {
-        state.showApps[showIndex].favourite = !state.showApps[showIndex][
-          payload.action
-        ];
-        state.originApps[originIndex].favourite = !state.originApps[
-          originIndex
-        ][payload.action];
+        state.showApps[showIndex].favourite = !state.showApps[showIndex]
+          .favourite;
+        state.originApps[originIndex].favourite = !state.originApps[originIndex]
+          .favourite;
       }
+      // this.refreshShowApps();
+      // this.applyFilters();
     },
     /**
      * Set page loading
@@ -129,6 +143,11 @@ export default new Vuex.Store({
     favouriteApps: (state) => {
       return state.originApps.filter((app) => app.favourite);
     },
+    /**
+     * Get Apps Tags
+     * @param apps
+     * @returns {*}
+     */
     getTags(apps) {
       return apps.filter((app) => app.tags);
     },

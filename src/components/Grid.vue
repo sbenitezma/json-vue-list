@@ -26,28 +26,5 @@ export default {
   computed: {
     ...mapState(["originApps"]),
   },
-  data() {
-    return {};
-  },
-  methods: {
-    truncateString(str, num) {
-      if (str.length > num) {
-        return str.slice(0, num) + "...";
-      } else {
-        return str;
-      }
-    },
-    getAppIcon(item) {
-      let appIcon = require(`@/assets/images/${item.icon}`);
-      if (appIcon) {
-        return appIcon;
-      } else {
-        return `https://source.unsplash.com/collection/3727392/300x300?sig=${item}`;
-      }
-    },
-    setFavourite(item) {
-      this.$store.commit("setFavourite", item);
-    },
-  },
 };
 </script>
