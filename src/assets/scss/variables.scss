@@ -15,6 +15,7 @@ $font12: 12px;
 $paragraphText: 18px;
 $defaultColor: #01FFF7;
 
+// Setup theme colors
 $theme-colors: (
   'primary': #01FFF7,
   'accent': #324346,
@@ -24,6 +25,14 @@ $theme-colors: (
   'warning': #FB8C00,
   'error': #FF5252
 );
+
+$primary: map-get($theme-colors, 'primary');
+$accent: map-get($theme-colors, 'accent');
+$secondary: map-get($theme-colors, 'secondary');
+$success: map-get($theme-colors, 'success');
+$info: map-get($theme-colors, 'info');
+$warning: map-get($theme-colors, 'warning');
+$error: map-get($theme-colors, 'error');
 
 :export {
   @each $key, $value in $theme-colors {

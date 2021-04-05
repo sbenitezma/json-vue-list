@@ -1,10 +1,11 @@
 <style lang="scss" scoped>
+@import "../assets/scss/variables.scss";
 .v-card {
   transition: opacity 0.4s ease-in-out;
   .on-hover {
     opacity: 2;
     cursor: pointer;
-    border: 3px solid #fdf69b !important;
+    border: 3px solid $secondary !important;
   }
   &:not(.on-hover) {
     opacity: 1;
@@ -24,38 +25,36 @@
           max-width="350"
           max-height="350"
         >
-          <Icon
+          <CustomIcon
             v-if="item.favourite"
             id="favouriteGrid"
-            maxHeight="40px"
-            maxWidth="40px"
-            customClass="float: right"
+            maxHeight="30px"
+            maxWidth="30px"
+            customClass="like-action"
             name="voice-favourite"
             @clickAction="setFavourite()"
-          ></Icon>
-          <Icon
+          ></CustomIcon>
+          <CustomIcon
             v-else
             id="favouriteOffGrid"
-            maxHeight="40px"
-            maxWidth="40px"
-            customClass="float: right"
+            maxHeight="30px"
+            maxWidth="30px"
+            customClass="like-action"
             name="voice-favourite-off"
+            hover-icon="voice-favourite"
             @clickAction="setFavourite()"
-          ></Icon>
+          ></CustomIcon>
           <div @click="setActive()">
             <div class="d-flex justify-space-between">
               <v-avatar class="ma-0" size="80" tile>
-                <v-img
+                <AppImage
+                  :alt="item.name"
+                  id="voiceAppImage"
+                  :name="item.icon"
                   max-height="80px"
                   max-width="80px"
-                  style="
-                    cursor: pointer;
-                    border-radius: 2% !important;
-                    white-space: normal;
-                  "
-                  :src="getAppIcon(item)"
                   aspect-ratio="1"
-                ></v-img>
+                />
               </v-avatar>
             </div>
             <v-card-title
@@ -71,10 +70,11 @@
   </v-row>
 </template>
 <script>
-import Icon from "@/components/Icon";
+import CustomIcon from "@/components/CustomIcon";
+import AppImage from "@/components/CustomImage";
 export default {
   name: "Card",
-  components: { Icon },
+  components: { CustomIcon, AppImage },
   props: {
     item: {
       type: Object,
@@ -104,19 +104,6 @@ export default {
         return str.slice(0, num) + "...";
       } else {
         return str;
-      }
-    },
-    /**
-     * Get Apps images
-     * @param item
-     * @returns {string|*}
-     */
-    getAppIcon(item) {
-      let appIcon = require(`@/assets/images/${item.icon}`);
-      if (appIcon) {
-        return appIcon;
-      } else {
-        return `https://source.unsplash.com/collection/3727392/300x300?sig=${item}`;
       }
     },
     /**

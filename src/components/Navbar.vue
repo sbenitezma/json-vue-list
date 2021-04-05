@@ -1,18 +1,23 @@
 <template>
   <v-app-bar app dark>
     <div class="d-flex justify-center">
-      <v-img
+      <CustomImage
         alt="Voicemod Logo"
+        aspect-ratio="1"
+        id="voicemodLogo"
+        max-height="200px"
+        max-width="200px"
+        name="logo-header.svg"
         contain
-        :src="require('@/assets/images/logo-header.svg')"
-        transition="scale-transition"
-        width="200"
       />
     </div>
   </v-app-bar>
 </template>
 <script>
+import CustomImage from "@/components/CustomImage";
+
 export default {
   name: "Navbar",
+  components: { CustomImage },
 };
 </script>

@@ -7,7 +7,12 @@
     </v-tabs>
     <v-tabs-items v-model="tab">
       <v-tab-item>
-        <v-card>
+        <v-card v-if="loading">
+          <v-overlay :value="loading">
+            <ProgressBar />
+          </v-overlay>
+        </v-card>
+        <v-card v-else>
           <v-card-title class="headline">
             All APPS
             <span class="ml-2">({{ originApps.length }})</span></v-card-title
@@ -18,7 +23,12 @@
         </v-card>
       </v-tab-item>
       <v-tab-item>
-        <v-card>
+        <v-card v-if="loading">
+          <v-overlay :value="loading">
+            <ProgressBar />
+          </v-overlay>
+        </v-card>
+        <v-card v-else>
           <v-card-title class="headline"> Favourite APPS </v-card-title>
           <v-card-text>
             <Table />
@@ -30,24 +40,25 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from "vuex";
+import { mapState } from "vuex";
 import Grid from "@/components/Grid";
 import Table from "@/components/Table";
+import ProgressBar from "@/components/ProgressBar";
 
 export default {
   name: "TabsMenu",
+  components: {
+    Grid,
+    ProgressBar,
+    Table,
+  },
   data: () => ({
     tab: null,
     items: ["Voice Apps", "Favourite Apps"],
   }),
   computed: {
-    ...mapState(["originApps"]),
-    ...mapGetters(["favoriteApps"]),
+    ...mapState(["originApps", "loading"]),
   },
   methods: {},
-  components: {
-    Grid,
-    Table,
-  },
 };
 </script>

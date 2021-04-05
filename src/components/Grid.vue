@@ -26,42 +26,5 @@ export default {
   computed: {
     ...mapState(["originApps"]),
   },
-  data() {
-    return {};
-  },
-  methods: {
-    /**
-     * Short too long strings
-     * @param str
-     * @param num
-     * @returns {string|*}
-     */
-    truncateString(str, num) {
-      if (str.length > num) {
-        return str.slice(0, num) + "...";
-      } else {
-        return str;
-      }
-    },
-    /**
-     * Get Apps images
-     * @param item
-     * @returns {string|*}
-     */
-    getAppIcon(item) {
-      let appIcon = require(`@/assets/images/${item.icon}`);
-      if (appIcon) {
-        return appIcon;
-      } else {
-        return `https://source.unsplash.com/collection/3727392/300x300?sig=${item}`;
-      }
-    },
-    /**
-     * Set Favourite app
-     */
-    setFavourite(item) {
-      this.$store.commit("setFavourite", item);
-    },
-  },
 };
 </script>

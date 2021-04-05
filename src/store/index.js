@@ -63,8 +63,9 @@ export default new Vuex.Store({
      * @param state
      */
     refreshShowApps(state) {
-      console.log("hola");
+      this.commit("setLoading", true);
       state.showApps = JSON.parse(JSON.stringify(state.originApps));
+      this.commit("setLoading", false);
     },
     /**
      * Set Active App
@@ -85,7 +86,7 @@ export default new Vuex.Store({
         if (currentId >= 0) {
           state.originApps[currentId].active = true;
         }
-        this.refreshShowApps();
+        this.commit("refreshShowApps");
         // this.applyFilters();
       }
     },
@@ -142,6 +143,11 @@ export default new Vuex.Store({
     favouriteApps: (state) => {
       return state.originApps.filter((app) => app.favourite);
     },
+    /**
+     * Get Apps Tags
+     * @param apps
+     * @returns {*}
+     */
     getTags(apps) {
       return apps.filter((app) => app.tags);
     },
