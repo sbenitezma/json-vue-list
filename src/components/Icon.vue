@@ -1,18 +1,34 @@
+<style>
+#favouriteGrid {
+}
+#favouriteOffGrid {
+}
+</style>
 <template>
-  <v-img
-    class="ma-3"
-    contain
-    :max-height="maxHeight"
-    :max-width="maxWidth"
-    :style="`${customClass};
-    cursor: pointer;
-    border-radius: 2% !important;
-    white-space: normal;
-    `"
-    :src="getIcon(name)"
-    aspect-ratio="1"
-    @click="setAction"
-  ></v-img>
+  <!-- eslint-disable-next-line vue/no-unused-vars -->
+  <v-hover v-slot:default="{ hover }">
+    <v-img
+      aspect-ratio="1"
+      class="ma-3"
+      contain
+      :id="id"
+      :max-height="maxHeight"
+      :max-width="maxWidth"
+      :style="`${customClass}; cursor: pointer; border-radius: 2% !important; white-space: normal;`"
+      :src="getIcon(name)"
+      @click="setAction"
+    >
+      <!--      <v-expand-transition>-->
+      <!--        <div-->
+      <!--          v-if="hover"-->
+      <!--          class="d-flex primary v-fav&#45;&#45;reveal"-->
+      <!--          style="height: 100%"-->
+      <!--        >-->
+      <!--          $14.99-->
+      <!--        </div>-->
+      <!--      </v-expand-transition>-->
+    </v-img>
+  </v-hover>
 </template>
 
 <script>
@@ -27,6 +43,11 @@ export default {
     customClass: {
       type: String,
       required: false,
+    },
+    id: {
+      type: String,
+      required: false,
+      default: "",
     },
     maxHeight: {
       type: String,
