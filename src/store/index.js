@@ -9,125 +9,73 @@ export default new Vuex.Store({
     originApps: [],
     showApps: [],
     currentTags: [],
-    titleFilter: "",
-    tagFilter: [],
+    appNameFilter: "",
+    tagFilter: "",
+    orderFilter: "",
     loading: true,
   },
-  actions: {
+  getters: {
     /**
-     * Set active a random APP
-     * @param commit
+     * Return active app
+     * @param state
+     * @returns {*[]}
      */
-    setActiveRandomApp({ commit }) {
-      commit("selectActiveRandomApp");
+    activeApp: (state) => {
+      return state.originApps.find((app) => app.active);
     },
     /**
-     * Set active action
-     * @param commit
-     * @param app
+     * Get favouriteApps
+     * @param state
+     * @returns {*[]}
      */
-    setActive({ commit }, app) {
-      commit("setActive", app);
+    favouriteApps: (state) => {
+      return state.originApps.filter((app) => app.favourite);
     },
     /**
-     * Set favourite app
-     * @param commit
-     * @param app
+     * Get Apps Tags
+     * @param state
+     * @returns {*}
      */
-    setFavourite({ commit }, app) {
-      commit("setFavourite", app);
-    },
-    /**
-     * Sort apps ascendant or descendent
-     * @param commit
-     * @param order
-     */
-    sortApps({ commit }, order) {
-      commit("sortAppsByName", order);
-    },
-    /**
-     * Load all Apps API info
-     * @param commit
-     * @returns {Promise<void>}
-     * @constructor
-     */
-    async LOAD_APPS({ commit }) {
-      let originApps = [];
-      if (db) {
-        originApps = db;
-        originApps.forEach((app) => {
-          app.favourite = false;
-          app.active = false;
+    getAppsTags: (state) => {
+      let allTags = ["All Tags"];
+      state.originApps.forEach((obj) => {
+        obj.tags.forEach((tag) => {
+          allTags.push(tag);
         });
-        const showApps = JSON.parse(JSON.stringify(originApps));
-        commit("setOriginApps", originApps);
-        commit("setShowApps", showApps);
-        commit("setLoading", false);
-      } else {
-        commit("setLoading", false);
-      }
-    },
-  },
-  mutations: {
-    /**
-     * State
-     * @param state
-     */
-    refreshShowApps(state) {
-      this.commit("setLoading", true);
-      state.showApps = JSON.parse(JSON.stringify(state.originApps));
-      this.commit("setLoading", false);
-    },
-    /**
-     * Select Random App and apply active status
-     * @param state
-     */
-    selectActiveRandomApp(state) {
-      let randomIdx = Math.floor(Math.random() * state.showApps.length);
-      this.commit("setActive", state.showApps[randomIdx]);
-    },
-    /**
-     * Search apps using filters
-     * @param state
-     * @param name
-     * @param tag
-     */
-    searchApps(state, name, tag) {
-      let results = state.showApps;
-      if (name !== "") {
-        results = this.commit("searchByTitle", name, results);
-      }
-      if (tag !== "") {
-        results = this.commit("searchByTag", tag, results);
-      }
-      state.showApps = JSON.parse(JSON.stringify(results));
+      });
+      allTags = [...new Set(allTags)];
+      return allTags;
     },
     /**
      * Search by title
      * @param state
-     * @param title
-     * @param results
-     * @returns {*}
+     * @returns {function(*=, *): void}
      */
-    searchByTitle(state, title, results) {
-      return results.filter((obj) => obj.name.includes(title));
+    searchByName: (state) => (params) => {
+      var x = state.showApps.filter(
+        (obj) =>
+          obj.name.toLowerCase().indexOf(params.name.toLowerCase()) !== -1
+      );
+      console.log(x);
+      return state.showApps.filter(
+        (obj) =>
+          obj.name.toLowerCase().indexOf(params.name.toLowerCase()) !== -1
+      );
     },
     /**
      * Search app by tag
      * @param state
-     * @param tag
-     * @param results
-     * @returns {*}
+     * @returns {function(*=, *): void}
      */
-    searchByTag(state, tag, results) {
-      return results.filter((obj) => obj.tag[0].includes(tag));
+    searchByTag: (state) => (tag) => {
+      return state.showApps.filter((obj) => obj.tag[0].includes(tag));
     },
     /**
-     * Set Apps sorting by name
+     * Sort App by name Desc or Asc
      * @param state
-     * @param order
+     * @returns {function(*): void}
      */
-    sortAppsByName(state, order) {
+    sortAppsByName: (state) => (order) => {
       state.showApps.sort((elem1, elem2) => {
         let temp1 = elem1.name;
         let temp2 = elem2.name;
@@ -143,6 +91,75 @@ export default new Vuex.Store({
         } else if (order === "DESC") {
           return temp1 < temp2 ? 1 : temp1 > temp2 ? -1 : 0;
         }
+      });
+    },
+  },
+  mutations: {
+    applyFilters(state, payload) {
+      if (payload.order) {
+        state.orderFilter = payload.orderFilter;
+      }
+      if (payload.tagFilter) {
+        state.tagFilter = payload.tagFilter;
+      }
+      if (payload.appNameFilter) {
+        state.appNameFilter = payload.appNameFilter;
+      }
+      this.commit("searchApps", {
+        order: state.orderFilter,
+        name: state.appNameFilter,
+        tag: state.tagFilter,
+      });
+    },
+    /**
+     * Clear App name text filter
+     * @param state
+     */
+    clearAppName(state) {
+      state.appNameFilter = "";
+    },
+    /**
+     * State
+     * @param state
+     */
+    refreshShowApps(state) {
+      this.commit("setLoading", true);
+      state.showApps = JSON.parse(JSON.stringify(state.originApps));
+      this.commit("setLoading", false);
+    },
+    /**
+     * Search apps using filters
+     * @param state
+     * @param payload
+     * @returns {function(*=, *): void}
+     */
+    searchApps(state, payload) {
+      this.commit("refreshShowApps");
+      if (payload.name !== "") {
+        state.appNameFilter = payload.name;
+        state.showApps = this.getters.searchByName({
+          name: payload.name,
+        });
+      }
+      if (
+        payload.tag !== "" &&
+        payload.tag !== undefined &&
+        payload.tag !== "All Tags"
+      ) {
+        state.tagFilter = payload.tag;
+        state.showApps = this.getters.searchByTag({ tag: payload.tag });
+      }
+    },
+    /**
+     * Select Random App and apply active status
+     * @param state
+     */
+    setActiveRandomApp(state) {
+      let randomIdx = Math.floor(Math.random() * state.showApps.length);
+      this.commit("setActive", state.showApps[randomIdx]);
+      this.commit("searchApps", {
+        name: state.appNameFilter,
+        tag: state.tagFilter,
       });
     },
     /**
@@ -211,31 +228,45 @@ export default new Vuex.Store({
     setShowApps(state, apps) {
       state.showApps = apps;
     },
-  },
-  getters: {
     /**
-     * Return active app
+     * Set Tags array
      * @param state
-     * @returns {*[]}
-     */
-    activeApp: (state) => {
-      return state.originApps.find((app) => app.active);
-    },
-    /**
-     * Get favouriteApps
-     * @param state
-     * @returns {*[]}
-     */
-    favouriteApps: (state) => {
-      return state.originApps.filter((app) => app.favourite);
-    },
-    /**
-     * Get Apps Tags
      * @param apps
-     * @returns {*}
      */
-    getTags(apps) {
-      return apps.filter((app) => app.tags);
+    setTags(state, apps) {
+      let allTags = [];
+      apps.forEach((obj) => {
+        obj.tags.forEach((tag) => {
+          allTags.push(tag);
+        });
+      });
+      allTags = [...new Set(allTags)];
+      state.currentTags = allTags;
+    },
+  },
+  actions: {
+    /**
+     * Load all Apps API info
+     * @param commit
+     * @returns {Promise<void>}
+     * @constructor
+     */
+    async LOAD_APPS({ commit }) {
+      let originApps = [];
+      if (db) {
+        originApps = db;
+        originApps.forEach((app) => {
+          app.favourite = false;
+          app.active = false;
+        });
+        const showApps = JSON.parse(JSON.stringify(originApps));
+        commit("setOriginApps", originApps);
+        commit("setShowApps", showApps);
+        commit("setTags", originApps);
+        commit("setLoading", false);
+      } else {
+        commit("setLoading", false);
+      }
     },
   },
 });

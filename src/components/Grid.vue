@@ -27,7 +27,7 @@ export default {
     Filters,
   },
   computed: {
-    ...mapState(["originApps", "showApps"]),
+    ...mapState(["showApps"]),
   },
 };
 </script>

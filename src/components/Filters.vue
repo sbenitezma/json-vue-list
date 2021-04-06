@@ -1,7 +1,14 @@
 <template>
   <v-row>
     <v-col class="d-flex" cols="3" md="3" sm="4">
-      <v-text-field slot="activator" v-model="search" outlined label="Search">
+      <v-text-field
+        slot="activator"
+        v-model="appName"
+        outlined
+        label="Search by voice name"
+        @change="searchApps"
+        @input="searchApps"
+      >
         <CustomIcon
           slot="prepend-inner"
           id="searchIcon"
@@ -9,7 +16,6 @@
           maxWidth="40px"
           customClass="pt-0 mt-2 ml-1"
           name="search"
-          @clickAction="searchAppsByName()"
         ></CustomIcon>
         <CustomIcon
           slot="append"
@@ -18,9 +24,36 @@
           maxWidth="10px"
           customClass="clickable pt-0 mt-1"
           name="search-close"
-          @clickAction="clearSearch()"
+          @clickAction="clearSearch"
         ></CustomIcon>
       </v-text-field>
+    </v-col>
+    <v-col class="d-flex" cols="3" md="3" sm="4">
+      <v-select
+        id="selectTag"
+        class="ml-0 pl-0"
+        :items="getAppsTags"
+        label="Tag"
+        outlined
+        @change="searchApps"
+      >
+        <CustomIcon
+          slot="prepend-inner"
+          id="filterIcon"
+          maxHeight="30px"
+          maxWidth="30px"
+          customClass="pa-0 mt-4 mr-1"
+          name="filter"
+        ></CustomIcon>
+        <CustomIcon
+          slot="append"
+          id="selectArrow"
+          maxHeight="15px"
+          maxWidth="15px"
+          customClass="pa-0 mt-1"
+          name="select-arrow"
+        ></CustomIcon>
+      </v-select>
     </v-col>
     <v-col class="d-flex" cols="3" md="3" sm="4">
       <v-select
@@ -36,7 +69,7 @@
           id="orderIcon"
           maxHeight="30px"
           maxWidth="30px"
-          customClass="pa-0 mt-4"
+          customClass="pa-0 mt-4 mr-1"
           name="order"
         ></CustomIcon>
         <CustomIcon
@@ -49,7 +82,6 @@
         ></CustomIcon>
       </v-select>
     </v-col>
-    <v-col class="d-flex" cols="3" md="3" sm="4"> </v-col>
     <v-col class="d-flex" cols="3" md="3" sm="4">
       <v-hover v-slot="{ hover }">
         <CustomIcon
@@ -66,7 +98,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapGetters } from "vuex";
 import CustomIcon from "@/components/CustomIcon";
 
 export default {
@@ -76,25 +108,41 @@ export default {
   },
   data() {
     return {
-      search: "",
+      appName: "",
       orderBy: ["ASC", "DESC"],
     };
   },
   computed: {
-    ...mapState(["originApps", "showApps"]),
+    ...mapState(["tagFilter", "orderFilter"]),
+    ...mapGetters({
+      getAppsTags: "getAppsTags",
+    }),
   },
   methods: {
     clearSearch() {
-      this.search = "";
+      this.appName = "";
+      this.$store.commit("clearAppName");
+      this.$store.commit("refreshShowApps");
     },
-    sortApps(order) {
-      this.$store.dispatch("sortApps", order);
-    },
-    searchAppsByName() {
-      this.$store.dispatch("search");
+    searchApps(name, tag) {
+      this.appName = name;
+      if (name.length >= 1 && tag !== "") {
+        this.$store.commit("searchApps", { name: name, tag: tag });
+      } else {
+        this.$store.commit("refreshShowApps");
+      }
     },
     selectRandomApp() {
-      this.$store.dispatch("setActiveRandomApp");
+      this.$store.commit("applyFilters", {
+        order: this.orderFilter,
+      });
+      this.$store.commit("setActiveRandomApp");
+    },
+    sortApps(order) {
+      this.$store.commit("applyFilters", {
+        order: order,
+      });
+      this.$store.getters.sortAppsByName(order);
     },
   },
 };
