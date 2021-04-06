@@ -30,7 +30,7 @@
             id="favouriteGrid"
             maxHeight="30px"
             maxWidth="30px"
-            customClass="like-action"
+            customClass="like-action clickable ma-3"
             name="voice-favourite"
             @clickAction="setFavourite()"
           ></CustomIcon>
@@ -39,7 +39,7 @@
             id="favouriteOffGrid"
             maxHeight="30px"
             maxWidth="30px"
-            customClass="like-action"
+            customClass="like-action clickable ma-3"
             name="voice-favourite-off"
             hover-icon="voice-favourite"
             @clickAction="setFavourite()"

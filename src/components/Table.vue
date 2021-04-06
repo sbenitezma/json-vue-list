@@ -32,6 +32,7 @@
       <template v-slot:item.favourite="props">
         <template v-if="props.item">
           <CustomIcon
+            custom-class="ma-3 clickable"
             maxHeight="20px"
             maxWidth="20px"
             v-if="props.item.favourite"

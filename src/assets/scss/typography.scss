@@ -29,7 +29,7 @@
 }
 // Subheadline-2
 .subtitle-2 {
-  @include font-style(color('primary'), 15px, 600, 24px);
+  @include font-style(color('info'), 15px, 600, 24px);
 }
 // Body Large
 .body-1 {

@@ -15,7 +15,14 @@ export default new Vuex.Store({
   },
   actions: {
     /**
-     * Set Active action
+     * Set active a random APP
+     * @param commit
+     */
+    setActiveRandomApp({ commit }) {
+      commit("selectActiveRandomApp");
+    },
+    /**
+     * Set active action
      * @param commit
      * @param app
      */
@@ -30,10 +37,14 @@ export default new Vuex.Store({
     setFavourite({ commit }, app) {
       commit("setFavourite", app);
     },
-    // selectRandom() {
-    //   this.selectActive(showApps);
-    //   this.selectActive(originApps);
-    // },
+    /**
+     * Sort apps ascendant or descendent
+     * @param commit
+     * @param order
+     */
+    sortApps({ commit }, order) {
+      commit("sortAppsByName", order);
+    },
     /**
      * Load all Apps API info
      * @param commit
@@ -66,6 +77,73 @@ export default new Vuex.Store({
       this.commit("setLoading", true);
       state.showApps = JSON.parse(JSON.stringify(state.originApps));
       this.commit("setLoading", false);
+    },
+    /**
+     * Select Random App and apply active status
+     * @param state
+     */
+    selectActiveRandomApp(state) {
+      let randomIdx = Math.floor(Math.random() * state.showApps.length);
+      this.commit("setActive", state.showApps[randomIdx]);
+    },
+    /**
+     * Search apps using filters
+     * @param state
+     * @param name
+     * @param tag
+     */
+    searchApps(state, name, tag) {
+      let results = state.showApps;
+      if (name !== "") {
+        results = this.commit("searchByTitle", name, results);
+      }
+      if (tag !== "") {
+        results = this.commit("searchByTag", tag, results);
+      }
+      state.showApps = JSON.parse(JSON.stringify(results));
+    },
+    /**
+     * Search by title
+     * @param state
+     * @param title
+     * @param results
+     * @returns {*}
+     */
+    searchByTitle(state, title, results) {
+      return results.filter((obj) => obj.name.includes(title));
+    },
+    /**
+     * Search app by tag
+     * @param state
+     * @param tag
+     * @param results
+     * @returns {*}
+     */
+    searchByTag(state, tag, results) {
+      return results.filter((obj) => obj.tag[0].includes(tag));
+    },
+    /**
+     * Set Apps sorting by name
+     * @param state
+     * @param order
+     */
+    sortAppsByName(state, order) {
+      state.showApps.sort((elem1, elem2) => {
+        let temp1 = elem1.name;
+        let temp2 = elem2.name;
+
+        if (typeof temp1 === "string") {
+          temp1 = `${temp1}`.toLowerCase();
+        }
+        if (typeof temp2 === "string") {
+          temp2 = `${temp2}`.toLowerCase();
+        }
+        if (order === "ASC") {
+          return temp1 < temp2 ? -1 : temp1 > temp2 ? 1 : 0;
+        } else if (order === "DESC") {
+          return temp1 < temp2 ? 1 : temp1 > temp2 ? -1 : 0;
+        }
+      });
     },
     /**
      * Set Active App
@@ -135,6 +213,14 @@ export default new Vuex.Store({
     },
   },
   getters: {
+    /**
+     * Return active app
+     * @param state
+     * @returns {*[]}
+     */
+    activeApp: (state) => {
+      return state.originApps.find((app) => app.active);
+    },
     /**
      * Get favouriteApps
      * @param state

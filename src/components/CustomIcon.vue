@@ -1,11 +1,19 @@
 <style lang="scss" scoped>
+@import "../assets/scss/variables.scss";
+
 .like-action {
   float: right;
 }
-.custom-icon {
+.clickable {
   cursor: pointer;
+}
+.custom-icon {
   border-radius: 2% !important;
   white-space: normal;
+}
+.random-hover {
+  filter: invert(80%) sepia(90%) saturate(1887%) hue-rotate(167deg)
+    brightness(200%) contrast(111%);
 }
 </style>
 
@@ -13,7 +21,7 @@
   <v-hover v-slot:default="{ hover }">
     <v-img
       aspect-ratio="1"
-      :class="`${customClass} custom-icon ma-3`"
+      :class="`${customClass} custom-icon`"
       contain
       :id="id"
       :height="maxHeight"
