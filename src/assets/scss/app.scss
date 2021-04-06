@@ -29,4 +29,7 @@ body,
     font-family: $body-font-family;
   }
 }
+.v-input__prepend-inner {
+  margin-top: 0 !important;
+}
 @import '~vuetify/src/styles/settings/_variables.scss';

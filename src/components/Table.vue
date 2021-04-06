@@ -1,62 +1,88 @@
 <template>
   <v-col cols="12" md="12">
-    <v-text-field
-      v-model="search"
-      append-icon="mdi-magnify"
-      label="Search"
-      single-line
-      hide-details
-    ></v-text-field>
-    <v-data-table
-      :headers="headers"
-      :items="favouriteApps"
-      :search="search"
-      class="elevation-1"
-    >
-      <template v-slot:item.active="props">
-        <template v-if="props.item">
-          <v-icon v-if="props.item.active" dark right color="secondary">
-            mdi-star
-          </v-icon>
-          <v-icon
-            v-else
-            dark
-            right
-            color="secondary"
-            @click="setActive(props.item)"
-          >
-            mdi-star-outline
-          </v-icon>
-        </template>
-      </template>
-      <template v-slot:item.favourite="props">
-        <template v-if="props.item">
+    <v-row>
+      <v-col cols="6" md="6">
+        <v-text-field
+          v-model="search"
+          outlined
+          label="Search"
+          single-line
+          hide-details
+        >
           <CustomIcon
-            custom-class="ma-3 clickable"
-            maxHeight="20px"
-            maxWidth="20px"
-            v-if="props.item.favourite"
-            hover-icon="voice-favourite-off"
-            name="voice-favourite"
-            @clickAction="setFavourite(props.item)"
+            slot="prepend-inner"
+            id="searchIcon"
+            maxHeight="40px"
+            maxWidth="40px"
+            customClass="pt-0 mt-2 ml-1"
+            name="search"
           ></CustomIcon>
-        </template>
-      </template>
-      <template v-slot:item.icon="{ item }">
-        <v-row no-gutters>
-          <v-col cols="12" md="12">
-            <AppImage
-              :alt="item.name"
-              id="voiceAppImage"
-              :name="item.icon"
-              max-height="50px"
-              max-width="50px"
-              aspect-ratio="1"
-            />
-          </v-col>
-        </v-row>
-      </template>
-    </v-data-table>
+          <CustomIcon
+            slot="append"
+            id="searchClose"
+            maxHeight="10px"
+            maxWidth="10px"
+            customClass="clickable pt-0 mt-1"
+            name="search-close"
+            @clickAction="clearSearch()"
+          ></CustomIcon>
+        </v-text-field>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col cols="12" md="12">
+        <v-data-table
+          :headers="headers"
+          :items="favouriteApps"
+          :search="search"
+          class="elevation-1"
+        >
+          <template v-slot:item.active="props">
+            <template v-if="props.item">
+              <v-icon v-if="props.item.active" dark right color="secondary">
+                mdi-star
+              </v-icon>
+              <v-icon
+                v-else
+                dark
+                right
+                color="secondary"
+                @click="setActive(props.item)"
+              >
+                mdi-star-outline
+              </v-icon>
+            </template>
+          </template>
+          <template v-slot:item.favourite="props">
+            <template v-if="props.item">
+              <CustomIcon
+                custom-class="ma-3 clickable"
+                maxHeight="20px"
+                maxWidth="20px"
+                v-if="props.item.favourite"
+                hover-icon="voice-favourite-off"
+                name="voice-favourite"
+                @clickAction="setFavourite(props.item)"
+              ></CustomIcon>
+            </template>
+          </template>
+          <template v-slot:item.icon="{ item }">
+            <v-row no-gutters>
+              <v-col cols="12" md="12">
+                <AppImage
+                  :alt="item.name"
+                  id="voiceAppImage"
+                  :name="item.icon"
+                  max-height="50px"
+                  max-width="50px"
+                  aspect-ratio="1"
+                />
+              </v-col>
+            </v-row>
+          </template>
+        </v-data-table>
+      </v-col>
+    </v-row>
   </v-col>
 </template>
 <script>
@@ -112,6 +138,12 @@ export default {
     };
   },
   methods: {
+    /**
+     * Clear search value
+     */
+    clearSearch() {
+      this.search = "";
+    },
     /**
      * Get Image of app
      * @param item
