@@ -6,6 +6,7 @@ import {
   info,
   warning,
   error,
+  white,
 } from "@/assets/scss/variables.scss";
 
 export default {
@@ -28,6 +29,9 @@ export default {
     },
     error: {
       base: error, // Font & icon color
+    },
+    white: {
+      base: white,
     },
   },
 };

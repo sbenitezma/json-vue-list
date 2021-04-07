@@ -16,10 +16,6 @@ export default {
     // already being observed
     this.fetchApps();
   },
-  data: () => ({
-    tab: null,
-    items: ["Voice Apps", "Favourite Apps"],
-  }),
   methods: {
     /**
      * Get Async Voice Apps

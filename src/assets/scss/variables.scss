@@ -3,16 +3,6 @@
 // All variable changes need to happen before @import
 $body-font-family: 'Source Sans Pro', sans-serif !important;
 $heading-font-family: $body-font-family !important;
-
-// Font sizes
-$font24: 24px;
-$font22: 22px;
-$font21: 21px;
-$font16: 16px;
-$font15: 15px;
-$font14: 14px;
-$font12: 12px;
-$paragraphText: 18px;
 $defaultColor: #01FFF7;
 
 // Setup theme colors
@@ -23,7 +13,8 @@ $theme-colors: (
   'success': #56BA92,
   'info': #71A5EC,
   'warning': #FB8C00,
-  'error': #FF5252
+  'error': #FF5252,
+  'white': #e7eceb
 );
 
 $primary: map-get($theme-colors, 'primary');
@@ -33,6 +24,7 @@ $success: map-get($theme-colors, 'success');
 $info: map-get($theme-colors, 'info');
 $warning: map-get($theme-colors, 'warning');
 $error: map-get($theme-colors, 'error');
+$white: map-get($theme-colors, 'white');
 
 :export {
   @each $key, $value in $theme-colors {

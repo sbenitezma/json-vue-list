@@ -1,12 +1,13 @@
 <template>
   <v-col cols="12" md="12">
-    <v-row no-gutters>
+    <Filters />
+    <v-row>
       <v-col
         cols="12"
         lg="2"
         md="2"
         sm="4"
-        v-for="(item, id) in originApps"
+        v-for="(item, id) in showApps"
         :key="id"
       >
         <Card :item="item" :id="id" />
@@ -17,14 +18,16 @@
 <script>
 import { mapState } from "vuex";
 import Card from "@/components/Card";
+import Filters from "@/components/Filters";
 
 export default {
   name: "Grid",
   components: {
     Card,
+    Filters,
   },
   computed: {
-    ...mapState(["originApps"]),
+    ...mapState(["showApps"]),
   },
 };
 </script>

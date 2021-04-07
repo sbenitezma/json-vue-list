@@ -30,7 +30,7 @@
             id="favouriteGrid"
             maxHeight="30px"
             maxWidth="30px"
-            customClass="like-action"
+            customClass="like-action clickable ma-3"
             name="voice-favourite"
             @clickAction="setFavourite()"
           ></CustomIcon>
@@ -39,7 +39,7 @@
             id="favouriteOffGrid"
             maxHeight="30px"
             maxWidth="30px"
-            customClass="like-action"
+            customClass="like-action clickable ma-3"
             name="voice-favourite-off"
             hover-icon="voice-favourite"
             @clickAction="setFavourite()"
@@ -110,13 +110,13 @@ export default {
      * Set Favourite app
      */
     setFavourite() {
-      this.$store.dispatch("setFavourite", this.item);
+      this.$store.commit("setFavourite", this.item);
     },
     /**
      * Set active app
      */
     setActive() {
-      this.$store.dispatch("setActive", this.item);
+      this.$store.commit("setActive", this.item);
     },
   },
 };

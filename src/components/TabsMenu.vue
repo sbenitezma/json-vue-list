@@ -13,13 +13,33 @@
           </v-overlay>
         </v-card>
         <v-card v-else>
-          <v-card-title class="headline">
-            All APPS
-            <span class="ml-2">({{ originApps.length }})</span></v-card-title
-          >
-          <v-card-text>
-            <Grid />
-          </v-card-text>
+          <v-row no-gutters>
+            <v-col cols="12" md="12">
+              <v-card-title class="headline ml-2">
+                Active Voice App
+              </v-card-title>
+              <v-card-text>
+                <div v-if="!activeApp">
+                  <span class="body ml-2">No active app selected</span>
+                </div>
+                <div v-else>
+                  <Card :item="activeApp" :id="activeApp.id" />
+                </div>
+              </v-card-text>
+            </v-col>
+          </v-row>
+          <v-row no-gutters>
+            <v-col cols="12" md="12">
+              <v-card-title>
+                <span class="headline ml-2">
+                  Showing ({{ showApps.length }}/{{ originApps.length }})
+                </span>
+              </v-card-title>
+              <v-card-text>
+                <Grid />
+              </v-card-text>
+            </v-col>
+          </v-row>
         </v-card>
       </v-tab-item>
       <v-tab-item>
@@ -29,7 +49,7 @@
           </v-overlay>
         </v-card>
         <v-card v-else>
-          <v-card-title class="headline"> Favourite APPS </v-card-title>
+          <v-card-title class="headline"> Favourites Voice Apps </v-card-title>
           <v-card-text>
             <Table />
           </v-card-text>
@@ -40,7 +60,8 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapGetters, mapState } from "vuex";
+import Card from "@/components/Card";
 import Grid from "@/components/Grid";
 import Table from "@/components/Table";
 import ProgressBar from "@/components/ProgressBar";
@@ -48,17 +69,19 @@ import ProgressBar from "@/components/ProgressBar";
 export default {
   name: "TabsMenu",
   components: {
+    Card,
     Grid,
     ProgressBar,
     Table,
   },
+  computed: {
+    ...mapState(["originApps", "showApps", "loading"]),
+    ...mapGetters(["activeApp"]),
+  },
   data: () => ({
     tab: null,
-    items: ["Voice Apps", "Favourite Apps"],
+    items: ["Voice Apps", "Favourites Voice Apps"],
   }),
-  computed: {
-    ...mapState(["originApps", "loading"]),
-  },
   methods: {},
 };
 </script>
