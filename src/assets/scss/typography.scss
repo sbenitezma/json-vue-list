@@ -1,16 +1,12 @@
-// Title
+// Voice App Title
 .title {
   @include font-style(color('primary'), 24px, 700, 28.8px);
 }
-// Headline-5
+// Section Title
 .headline {
   @include font-style(color('primary'), 28px, 700, 28.8px);
 }
-// Subheadline-1
-.subtitle-1 {
-  @include font-style(color('white'), 18px, 600, 28.8px);
-}
-// Subheadline-2
-.subtitle-2 {
-  @include font-style(color('secondary'), 15px, 300, 24px);
+// Body text
+.body {
+  @include font-style(color('white'), 15px, 300, 24px);
 }

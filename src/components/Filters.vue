@@ -128,14 +128,14 @@ export default {
         this.clearSearch();
       } else {
         this.appName = name;
-        this.$store.commit("applyFilters", {
+        this.$store.commit("setFilters", {
           name: this.appName,
         });
       }
     },
     searchByTagApps(tag) {
       if (tag !== "") {
-        this.$store.commit("applyFilters", {
+        this.$store.commit("setFilters", {
           tag: tag,
         });
       } else {
@@ -143,13 +143,13 @@ export default {
       }
     },
     selectRandomApp() {
-      this.$store.commit("applyFilters", {
+      this.$store.commit("setFilters", {
         order: this.orderFilter,
       });
       this.$store.commit("setActiveRandomApp");
     },
     sortApps(order) {
-      this.$store.commit("applyFilters", {
+      this.$store.commit("setFilters", {
         order: order,
       });
       this.$store.getters.sortAppsByName(order);

@@ -15,10 +15,12 @@
         <v-card v-else>
           <v-row no-gutters>
             <v-col cols="12" md="12">
-              <v-card-title class="headline"> Active APP </v-card-title>
+              <v-card-title class="headline ml-2">
+                Active Voice App
+              </v-card-title>
               <v-card-text>
                 <div v-if="!activeApp">
-                  <span class="subtitle-2">No active app selected</span>
+                  <span class="body ml-2">No active app selected</span>
                 </div>
                 <div v-else>
                   <Card :item="activeApp" :id="activeApp.id" />
@@ -29,13 +31,9 @@
           <v-row no-gutters>
             <v-col cols="12" md="12">
               <v-card-title>
-                <span class="headline ml-2">Showing APPS</span>
-                <span class="ml-2 mr-2 subtitle-1">
-                  ({{ showApps.length }})
+                <span class="headline ml-2">
+                  Showing ({{ showApps.length }}/{{ originApps.length }})
                 </span>
-                -
-                <span class="ml-2 headline">All APPS</span>
-                <span class="ml-2 subtitle-1"> ({{ originApps.length }}) </span>
               </v-card-title>
               <v-card-text>
                 <Grid />
@@ -51,7 +49,7 @@
           </v-overlay>
         </v-card>
         <v-card v-else>
-          <v-card-title class="headline"> Favourite APPS </v-card-title>
+          <v-card-title class="headline"> Favourites Voice Apps </v-card-title>
           <v-card-text>
             <Table />
           </v-card-text>
@@ -82,7 +80,7 @@ export default {
   },
   data: () => ({
     tab: null,
-    items: ["Voice Apps", "Favourite Apps"],
+    items: ["Voice Apps", "Favourites Voice Apps"],
   }),
   methods: {},
 };

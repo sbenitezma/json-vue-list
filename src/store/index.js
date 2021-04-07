@@ -101,7 +101,7 @@ export default new Vuex.Store({
      * @param state
      * @param payload
      */
-    applyFilters(state, payload) {
+    setFilters(state, payload) {
       if (payload) {
         if (payload.order) {
           state.orderFilter = payload.order;
@@ -113,6 +113,7 @@ export default new Vuex.Store({
           state.appNameFilter = payload.name;
         }
       }
+      this.commit("refreshShowApps");
       this.commit("searchApps", {
         order: state.orderFilter,
         name: state.appNameFilter,
@@ -125,7 +126,7 @@ export default new Vuex.Store({
      */
     clearAppName(state) {
       state.appNameFilter = "";
-      this.commit("applyFilters");
+      this.commit("setFilters");
     },
     /**
      * State
@@ -143,7 +144,6 @@ export default new Vuex.Store({
      * @returns {function(*=, *): void}
      */
     searchApps(state, payload) {
-      this.commit("refreshShowApps");
       if (payload.name !== "") {
         state.appNameFilter = payload.name;
         state.showApps = this.getters.searchByName({
@@ -159,7 +159,6 @@ export default new Vuex.Store({
         state.showApps = this.getters.searchByTag({ tag: payload.tag });
       }
       if (payload.order) {
-        console.log("hola?");
         state.orderFilter = payload.order;
         state.showApps = this.getters.sortAppsByName(payload.order);
       }
@@ -191,8 +190,7 @@ export default new Vuex.Store({
         if (currentId >= 0) {
           state.originApps[currentId].active = true;
         }
-        this.commit("refreshShowApps");
-        this.commit("applyFilters");
+        this.commit("setFilters");
       }
     },
     /**
@@ -208,8 +206,7 @@ export default new Vuex.Store({
         state.originApps[originIndex].favourite = !state.originApps[originIndex]
           .favourite;
       }
-      this.commit("refreshShowApps");
-      this.commit("applyFilters");
+      this.commit("setFilters");
     },
     /**
      * Set page loading

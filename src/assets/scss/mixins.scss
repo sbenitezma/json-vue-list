@@ -1,24 +1,22 @@
 // =============================================================================
-// String Replace
-// =============================================================================
-
-@function str-replace($string, $search, $replace: "") {
-  $index: str-index($string, $search);
-
-  @if $index {
-    @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
-  }
-
-  @return $string;
-}
-
-// =============================================================================
 // Calculate Rem by px
 // =============================================================================
 
 @function calculateRem($size) {
   $remSize: $size / 16px;
   @return $remSize * 1rem;
+}
+
+// =============================================================================
+// Font Face
+// =============================================================================
+
+@mixin font-style($color, $fontSize, $fontWeight, $lineHeight){
+  color: $color;
+  font-size: calculateRem($fontSize);
+  font-weight: $fontWeight;
+  line-height: $lineHeight;
+
 }
 
 // =============================================================================
@@ -29,200 +27,4 @@
     @return map-get($theme-colors, $value);
   }
   @return $defaultColor; //if it's not  declared color then return the default color
-}
-
-
-// =============================================================================
-// Font Face
-// =============================================================================
-
-@mixin font-face($name, $path, $weight: null, $style: null, $exts: eot woff2 woff ttf svg) {
-  $src: null;
-
-  $extmods: (
-          eot: "?",
-          svg: "#" + str-replace($name, " ", "_")
-  );
-
-  $formats: (
-          otf: "opentype",
-          ttf: "truetype"
-  );
-
-  @each $ext in $exts {
-    $extmod: if(map-has-key($extmods, $ext), $ext + map-get($extmods, $ext), $ext);
-    $format: if(map-has-key($formats, $ext), map-get($formats, $ext), $ext);
-    $src: append($src, url(quote($path + "." + $extmod)) format(quote($format)), comma);
-  }
-
-  @font-face {
-    font-family: quote($name);
-    font-style: $style;
-    font-weight: $weight;
-    src: $src;
-  }
-}
-
-@mixin font-style($color, $fontSize, $fontWeight, $lineHeight){
-  color: $color;
-  font-size: calculateRem($fontSize);
-  font-weight: $fontWeight;
-  line-height: $lineHeight;
-
-}
-
-
-// =============================================================================
-// Font Size
-// =============================================================================
-
-@mixin font-size($size) {
-  font-size: calculateRem($size);
-}
-
-// =============================================================================
-// Keyframes
-// =============================================================================
-
-@mixin keyframes($animation-name) {
-  @-webkit-keyframes #{$animation-name} {
-    @content;
-  }
-  @-moz-keyframes #{$animation-name} {
-    @content;
-  }
-  @-ms-keyframes #{$animation-name} {
-    @content;
-  }
-  @-o-keyframes #{$animation-name} {
-    @content;
-  }
-  @keyframes #{$animation-name} {
-    @content;
-  }
-}
-
-// =============================================================================
-// Animations
-// =============================================================================
-
-@mixin animation($str) {
-  -webkit-animation: #{$str};
-  -moz-animation: #{$str};
-  -ms-animation: #{$str};
-  -o-animation: #{$str};
-  animation: #{$str};
-}
-
-// =============================================================================
-// Transitions
-// =============================================================================
-
-@mixin transition($args...) {
-  -webkit-transition: $args;
-  -moz-transition: $args;
-  -ms-transition: $args;
-  -o-transition: $args;
-  transition: $args;
-}
-
-// =============================================================================
-// Transformations
-// =============================================================================
-
-@mixin transform($transforms) {
-  -moz-transform: $transforms;
-  -o-transform: $transforms;
-  -ms-transform: $transforms;
-  -webkit-transform: $transforms;
-  transform: $transforms;
-}
-
-// =============================================================================
-// Customize Font
-// =============================================================================
-
-@mixin opacity($opacity) {
-  opacity: $opacity;
-  $opacity-ie: $opacity * 100;
-  filter: alpha(opacity=$opacity-ie); //IE8
-}
-
-// =============================================================================
-// Custom Component Settings according Size
-// =============================================================================
-@mixin componentSettings($color, $fontSize, $fontWeight, $left: null, $letterSpacing: null, $lineHeight, $padding: null, $position: null, $textAlign: null, $top: null) {
-  font-size: $fontSize;
-  font-weight: $fontWeight;
-
-  @if ($color) {
-    color: $color;
-  }
-
-  @if ($left) {
-    left: $left;
-  }
-
-  @if ($letterSpacing) {
-    letter-spacing: $letterSpacing;
-  }
-
-  line-height: $lineHeight !important;
-
-  @if ($padding) {
-    padding: $padding;
-  }
-
-  @if ($position) {
-    position: $position;
-  }
-
-  @if ($textAlign) {
-    text-align: $textAlign;
-  }
-
-  @if ($top) {
-    top: $top;
-  }
-}
-
-// =============================================================================
-// Customize Box Shadow
-// =============================================================================
-
-@mixin boxShadow($str...) {
-  box-shadow: #{$str} !important;
-  -webkit-box-shadow: #{$str} !important;
-  -moz-box-shadow: #{$str} !important;
-}
-
-// =============================================================================
-// Customize Word Break
-// =============================================================================
-
-@mixin wordBreak($standardBreak, $msBreak, $webkitBreak, $standardHyphens, $webkitHyphens, $mozHyphens) {
-
-  @if ($standardBreak) {
-    word-break: $standardBreak;
-  }
-
-  @if($msBreak) {
-    -ms-word-break: $msBreak;
-  }
-
-  @if($webkitBreak) {
-    word-break: $webkitBreak;
-  }
-
-  @if ($standardHyphens) {
-    hyphens: $standardHyphens;
-  }
-
-  @if($webkitHyphens) {
-    -webkit-hyphens: $webkitHyphens;
-  }
-
-  @if($mozHyphens) {
-    -moz-hyphens: $mozHyphens;
-  }
 }
