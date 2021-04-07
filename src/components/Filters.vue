@@ -6,8 +6,8 @@
         v-model="appName"
         outlined
         label="Search by voice name"
-        @change="searchApps"
-        @input="searchApps"
+        @change="searchByNameApps"
+        @input="searchByNameApps"
       >
         <CustomIcon
           slot="prepend-inner"
@@ -35,7 +35,7 @@
         :items="getAppsTags"
         label="Tag"
         outlined
-        @change="searchApps"
+        @change="searchByTagApps"
       >
         <CustomIcon
           slot="prepend-inner"
@@ -122,12 +122,22 @@ export default {
     clearSearch() {
       this.appName = "";
       this.$store.commit("clearAppName");
-      this.$store.commit("refreshShowApps");
     },
-    searchApps(name, tag) {
-      this.appName = name;
-      if (name.length >= 1 && tag !== "") {
-        this.$store.commit("searchApps", { name: name, tag: tag });
+    searchByNameApps(name) {
+      if (name.length === 0) {
+        this.clearSearch();
+      } else {
+        this.appName = name;
+        this.$store.commit("applyFilters", {
+          name: this.appName,
+        });
+      }
+    },
+    searchByTagApps(tag) {
+      if (tag !== "") {
+        this.$store.commit("applyFilters", {
+          tag: tag,
+        });
       } else {
         this.$store.commit("refreshShowApps");
       }

@@ -52,11 +52,6 @@ export default new Vuex.Store({
      * @returns {function(*=, *): void}
      */
     searchByName: (state) => (params) => {
-      var x = state.showApps.filter(
-        (obj) =>
-          obj.name.toLowerCase().indexOf(params.name.toLowerCase()) !== -1
-      );
-      console.log(x);
       return state.showApps.filter(
         (obj) =>
           obj.name.toLowerCase().indexOf(params.name.toLowerCase()) !== -1
@@ -67,8 +62,14 @@ export default new Vuex.Store({
      * @param state
      * @returns {function(*=, *): void}
      */
-    searchByTag: (state) => (tag) => {
-      return state.showApps.filter((obj) => obj.tag[0].includes(tag));
+    searchByTag: (state) => (filterObj) => {
+      return state.showApps.filter((obj) => {
+        return (
+          obj.tags.findIndex((t) => {
+            return t.includes(filterObj.tag);
+          }) >= 0
+        );
+      });
     },
     /**
      * Sort App by name Desc or Asc
@@ -76,7 +77,7 @@ export default new Vuex.Store({
      * @returns {function(*): void}
      */
     sortAppsByName: (state) => (order) => {
-      state.showApps.sort((elem1, elem2) => {
+      return state.showApps.sort((elem1, elem2) => {
         let temp1 = elem1.name;
         let temp2 = elem2.name;
 
@@ -95,15 +96,22 @@ export default new Vuex.Store({
     },
   },
   mutations: {
+    /**
+     * Setup filters on search
+     * @param state
+     * @param payload
+     */
     applyFilters(state, payload) {
-      if (payload.order) {
-        state.orderFilter = payload.orderFilter;
-      }
-      if (payload.tagFilter) {
-        state.tagFilter = payload.tagFilter;
-      }
-      if (payload.appNameFilter) {
-        state.appNameFilter = payload.appNameFilter;
+      if (payload) {
+        if (payload.order) {
+          state.orderFilter = payload.order;
+        }
+        if (payload.tag) {
+          state.tagFilter = payload.tag;
+        }
+        if (payload.name) {
+          state.appNameFilter = payload.name;
+        }
       }
       this.commit("searchApps", {
         order: state.orderFilter,
@@ -117,6 +125,7 @@ export default new Vuex.Store({
      */
     clearAppName(state) {
       state.appNameFilter = "";
+      this.commit("applyFilters");
     },
     /**
      * State
@@ -149,6 +158,11 @@ export default new Vuex.Store({
         state.tagFilter = payload.tag;
         state.showApps = this.getters.searchByTag({ tag: payload.tag });
       }
+      if (payload.order) {
+        console.log("hola?");
+        state.orderFilter = payload.order;
+        state.showApps = this.getters.sortAppsByName(payload.order);
+      }
     },
     /**
      * Select Random App and apply active status
@@ -157,10 +171,6 @@ export default new Vuex.Store({
     setActiveRandomApp(state) {
       let randomIdx = Math.floor(Math.random() * state.showApps.length);
       this.commit("setActive", state.showApps[randomIdx]);
-      this.commit("searchApps", {
-        name: state.appNameFilter,
-        tag: state.tagFilter,
-      });
     },
     /**
      * Set Active App
@@ -182,7 +192,7 @@ export default new Vuex.Store({
           state.originApps[currentId].active = true;
         }
         this.commit("refreshShowApps");
-        // this.applyFilters();
+        this.commit("applyFilters");
       }
     },
     /**
@@ -191,18 +201,15 @@ export default new Vuex.Store({
      * @param payload
      */
     setFavourite(state, payload) {
-      let showIndex = state.showApps.findIndex((obj) => obj.id === payload.id);
       let originIndex = state.originApps.findIndex(
         (obj) => obj.id === payload.id
       );
-      if (showIndex >= 0) {
-        state.showApps[showIndex].favourite = !state.showApps[showIndex]
-          .favourite;
+      if (originIndex >= 0) {
         state.originApps[originIndex].favourite = !state.originApps[originIndex]
           .favourite;
       }
-      // this.refreshShowApps();
-      // this.applyFilters();
+      this.commit("refreshShowApps");
+      this.commit("applyFilters");
     },
     /**
      * Set page loading

@@ -13,18 +13,10 @@ body,
 //Added all typography helper classes because of css specificity override
 //https://vuetifyjs.com/en/styles/typography#typography
 .v-application {
-  .display-4,
-  .display-3,
-  .display-2,
-  .display-1,
-  .headline,
   .title,
+  .headline,
   .subtitle-1,
   .subtitle-2,
-  .body-1,
-  .body-2,
-  .caption,
-  .overline
   {
     font-family: $body-font-family;
   }

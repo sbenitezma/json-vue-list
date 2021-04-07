@@ -28,12 +28,15 @@
           </v-row>
           <v-row no-gutters>
             <v-col cols="12" md="12">
-              <v-card-title class="headline">
-                All APPS
-                <span class="ml-2"
-                  >({{ originApps.length }})</span
-                ></v-card-title
-              >
+              <v-card-title>
+                <span class="headline ml-2">Showing APPS</span>
+                <span class="ml-2 mr-2 subtitle-1">
+                  ({{ showApps.length }})
+                </span>
+                -
+                <span class="ml-2 headline">All APPS</span>
+                <span class="ml-2 subtitle-1"> ({{ originApps.length }}) </span>
+              </v-card-title>
               <v-card-text>
                 <Grid />
               </v-card-text>
@@ -74,7 +77,7 @@ export default {
     Table,
   },
   computed: {
-    ...mapState(["originApps", "loading"]),
+    ...mapState(["originApps", "showApps", "loading"]),
     ...mapGetters(["activeApp"]),
   },
   data: () => ({
