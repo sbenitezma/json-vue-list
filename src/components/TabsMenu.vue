@@ -31,7 +31,7 @@
           <v-row no-gutters>
             <v-col cols="12" md="12">
               <v-card-title>
-                <span class="headline ml-2">
+                <span class="headline ml-2" id="showingAppsText">
                   Showing ({{ showApps.length }}/{{ originApps.length }})
                 </span>
               </v-card-title>
