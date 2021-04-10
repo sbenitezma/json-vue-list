@@ -82,8 +82,6 @@ export default {
       required: true,
     },
   },
-  data() {},
-  created() {},
   methods: {
     /**
      * Short too long strings
