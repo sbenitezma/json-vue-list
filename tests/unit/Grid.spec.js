@@ -5,20 +5,18 @@ import Grid from "@/components/Grid.vue";
 import Card from "@/components/Card.vue";
 import Filters from "@/components/Filters.vue";
 
-const localVue = createLocalVue();
-localVue.use(Vuex);
-
 describe.only("Grid.vue", () => {
+  const localVue = createLocalVue();
   let state;
   let store;
   let vuetify;
   let wrapper;
 
-  beforeEach(() => {
-    const localVue = createLocalVue();
-    vuetify = new Vuetify();
-    localVue.use(vuetify);
+  vuetify = new Vuetify();
+  localVue.use(vuetify);
+  localVue.use(Vuex);
 
+  beforeEach(() => {
     state = {
       showApps: [
         {
@@ -38,6 +36,8 @@ describe.only("Grid.vue", () => {
     };
     store = new Vuex.Store({
       state,
+      vuetify,
+      localVue,
     });
   });
   // Destroy the component wrapper after each test

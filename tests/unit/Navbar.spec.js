@@ -1,15 +1,9 @@
 import { createLocalVue, mount } from "@vue/test-utils";
-import Vuex from "vuex";
 import Vuetify from "vuetify";
 import Navbar from "@/components/Navbar.vue";
 import Icon from "@/components/Icon.vue";
 
-// add the 2 lines below
-const localVue = createLocalVue();
-localVue.use(Vuex);
-
 describe.only("Navbar.vue", () => {
-  // add the 2 lines below
   const localVue = createLocalVue();
   let vuetify;
   let wrapper;

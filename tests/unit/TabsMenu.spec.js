@@ -6,29 +6,19 @@ import TabsMenu from "@/components/TabsMenu.vue";
 import Card from "@/components/Card.vue";
 import ProgressBar from "@/components/ProgressBar";
 
-const localVue = createLocalVue();
-localVue.use(Vuex);
-
-const activeAppMock = jest.fn();
-activeAppMock.mockReturnValue({
-  id: "adult-to-children",
-  name: "Adult to children",
-  icon: "VoicesVoiceIcon03.png",
-  tags: ["human"],
-});
-
 describe("TabsMenu.vue", () => {
+  const localVue = createLocalVue();
   let getters;
   let state;
   let store;
   let vuetify;
   let wrapper;
 
-  beforeEach(() => {
-    const localVue = createLocalVue();
-    vuetify = new Vuetify();
-    localVue.use(vuetify);
+  vuetify = new Vuetify();
+  localVue.use(vuetify);
+  localVue.use(Vuex);
 
+  beforeEach(() => {
     state = {
       originApps: [
         {

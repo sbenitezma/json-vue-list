@@ -1,14 +1,8 @@
 import { createLocalVue, mount } from "@vue/test-utils";
-import Vuex from "vuex";
 import Vuetify from "vuetify";
 import ProgressBar from "@/components/ProgressBar.vue";
 
-// add the 2 lines below
-const localVue = createLocalVue();
-localVue.use(Vuex);
-
 describe.only("ProgressBar.vue", () => {
-  // add the 2 lines below
   const localVue = createLocalVue();
   let vuetify;
   let wrapper;
