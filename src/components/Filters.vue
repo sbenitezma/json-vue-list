@@ -12,7 +12,7 @@
         <Icon
           alt="Search apps by name"
           slot="prepend-inner"
-          id="searchIcon"
+          id="searchIconGrid"
           maxHeight="40px"
           maxWidth="40px"
           customClass="pt-0 mt-2 ml-1"
@@ -21,7 +21,7 @@
         <Icon
           alt="Close search apps by name"
           slot="append"
-          id="searchClose"
+          id="searchCloseGrid"
           maxHeight="10px"
           maxWidth="10px"
           customClass="clickable pt-0 mt-1"
@@ -42,7 +42,7 @@
         <Icon
           alt="Filter apps by name"
           slot="prepend-inner"
-          id="filterIcon"
+          id="filterIconGrid"
           maxHeight="30px"
           maxWidth="30px"
           customClass="pa-0 mt-4 mr-1"
@@ -51,7 +51,7 @@
         <Icon
           alt="Filter apps"
           slot="append"
-          id="selectArrowTags"
+          id="selectArrowTagsGrid"
           maxHeight="15px"
           maxWidth="15px"
           customClass="pa-0 mt-1"
@@ -72,7 +72,7 @@
         <Icon
           alt="Order apps"
           slot="prepend-inner"
-          id="orderIcon"
+          id="orderIconGrid"
           maxHeight="30px"
           maxWidth="30px"
           customClass="pa-0 mt-4 mr-1"
@@ -81,7 +81,7 @@
         <Icon
           alt="Sort apps"
           slot="append"
-          id="selectArrowSort"
+          id="selectArrowSortGrid"
           maxHeight="15px"
           maxWidth="15px"
           customClass="pa-0 mt-1"

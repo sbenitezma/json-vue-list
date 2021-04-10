@@ -28,7 +28,7 @@
           <Icon
             v-if="item.favourite"
             alt="Set favourite app"
-            id="favouriteGrid"
+            :id="`favouriteGrid-${item.id}`"
             maxHeight="30px"
             maxWidth="30px"
             customClass="like-action clickable ma-3"
@@ -38,7 +38,7 @@
           <Icon
             v-else
             alt="Set favourite off"
-            id="favouriteOffGrid"
+            :id="`favouriteOffGrid-${item.id}`"
             maxHeight="30px"
             maxWidth="30px"
             customClass="like-action clickable ma-3"
@@ -51,7 +51,7 @@
               <v-avatar class="ma-0" size="80" tile>
                 <Icon
                   :alt="item.name"
-                  id="voiceAppImage"
+                  :id="`voiceAppImage-${item.id}`"
                   :name="item.icon"
                   max-height="80px"
                   max-width="80px"
@@ -81,17 +81,8 @@ export default {
       type: Object,
       required: true,
     },
-    id: {
-      type: [String, Number],
-      required: true,
-    },
   },
-  data() {
-    return {
-      icons: ["mdi-rewind", "mdi-play", "mdi-fast-forward"],
-      transparent: "rgba(255, 255, 255, 0)",
-    };
-  },
+  data() {},
   created() {},
   methods: {
     /**

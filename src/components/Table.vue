@@ -12,7 +12,7 @@
           <Icon
             alt="Search app"
             slot="prepend-inner"
-            id="searchIcon"
+            id="searchIconTable"
             maxHeight="40px"
             maxWidth="40px"
             customClass="pt-0 mt-2 ml-1"
@@ -21,7 +21,7 @@
           <Icon
             alt="Close search"
             slot="append"
-            id="searchClose"
+            id="searchCloseTable"
             maxHeight="10px"
             maxWidth="10px"
             customClass="clickable pt-0 mt-1"
@@ -60,6 +60,7 @@
               <Icon
                 alt="Set favourite off"
                 custom-class="ma-3 clickable"
+                id="favouriteOffTable"
                 maxHeight="20px"
                 maxWidth="20px"
                 v-if="props.item.favourite"
@@ -74,7 +75,7 @@
               <v-col cols="12" md="12">
                 <Icon
                   :alt="item.name"
-                  id="voiceAppImage"
+                  :id="`voiceAppImage-${item.id}`"
                   :name="item.icon"
                   max-height="50px"
                   max-width="50px"

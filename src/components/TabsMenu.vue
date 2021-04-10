@@ -23,7 +23,7 @@
                   <span class="body ml-2">No active app selected</span>
                 </div>
                 <div v-else>
-                  <Card :item="activeApp" :id="activeApp.id" />
+                  <Card :item="activeApp" />
                 </div>
               </v-card-text>
             </v-col>
