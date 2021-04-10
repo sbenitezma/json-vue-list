@@ -18,10 +18,10 @@ activeAppMock.mockReturnValue({
 });
 
 describe("TabsMenu.vue", () => {
-  let vuetify;
   let getters;
   let state;
   let store;
+  let vuetify;
   let wrapper;
 
   beforeEach(() => {
