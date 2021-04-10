@@ -1,13 +1,13 @@
 import { createLocalVue, mount } from "@vue/test-utils";
 import Vuex from "vuex";
 import Vuetify from "vuetify";
-import CustomIcon from "@/components/CustomIcon";
+import Icon from "@/components/Icon";
 
 // add the 2 lines below
 const localVue = createLocalVue();
 localVue.use(Vuex);
 
-describe.only("CustomIcon.vue", () => {
+describe.only("Icon.vue", () => {
   // add the 2 lines below
   const localVue = createLocalVue();
   let vuetify;
@@ -16,7 +16,7 @@ describe.only("CustomIcon.vue", () => {
 
   beforeEach(() => {
     // Mount component to be accessible for classes
-    wrapper = mount(CustomIcon, {
+    wrapper = mount(Icon, {
       vuetify,
       localVue,
       propsData: {
@@ -33,11 +33,11 @@ describe.only("CustomIcon.vue", () => {
     wrapper.destroy();
   });
 
-  it("Renders CustomIcon component", () => {
-    expect(wrapper.findComponent(CustomIcon).exists()).toBeTruthy();
+  it("Renders Icon component", () => {
+    expect(wrapper.findComponent(Icon).exists()).toBeTruthy();
   });
 
-  it("Should render CustomIcon classes", () => {
+  it("Should render Icon classes", () => {
     let toolbarClass = wrapper.find(".v-image");
     expect(toolbarClass.exists()).toBeTruthy();
     expect(toolbarClass.element).toMatchSnapshot();

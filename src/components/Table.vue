@@ -9,7 +9,7 @@
           single-line
           hide-details
         >
-          <CustomIcon
+          <Icon
             alt="Search app"
             slot="prepend-inner"
             id="searchIcon"
@@ -17,8 +17,8 @@
             maxWidth="40px"
             customClass="pt-0 mt-2 ml-1"
             name="search.svg"
-          ></CustomIcon>
-          <CustomIcon
+          ></Icon>
+          <Icon
             alt="Close search"
             slot="append"
             id="searchClose"
@@ -27,7 +27,7 @@
             customClass="clickable pt-0 mt-1"
             name="search-close.svg"
             @clickAction="clearSearch()"
-          ></CustomIcon>
+          ></Icon>
         </v-text-field>
       </v-col>
     </v-row>
@@ -57,7 +57,7 @@
           </template>
           <template v-slot:item.favourite="props">
             <template v-if="props.item">
-              <CustomIcon
+              <Icon
                 alt="Set favourite off"
                 custom-class="ma-3 clickable"
                 maxHeight="20px"
@@ -66,13 +66,13 @@
                 hover-icon="voice-favourite-off.svg"
                 name="voice-favourite.svg"
                 @clickAction="setFavourite(props.item)"
-              ></CustomIcon>
+              ></Icon>
             </template>
           </template>
           <template v-slot:item.icon="{ item }">
             <v-row no-gutters>
               <v-col cols="12" md="12">
-                <CustomIcon
+                <Icon
                   :alt="item.name"
                   id="voiceAppImage"
                   :name="item.icon"
@@ -90,11 +90,11 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
-import CustomIcon from "@/components/CustomIcon";
+import Icon from "@/components/Icon";
 
 export default {
   name: "Table",
-  components: { CustomIcon },
+  components: { Icon },
   computed: {
     ...mapGetters(["favouriteApps"]),
   },

@@ -36,7 +36,7 @@
 </template>
 <script>
 export default {
-  name: "CustomIcon",
+  name: "Icon",
   props: {
     alt: {
       type: String,

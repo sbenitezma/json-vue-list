@@ -1,7 +1,7 @@
 <template>
   <v-app-bar app dark>
     <div class="d-flex justify-center">
-      <CustomIcon
+      <Icon
         alt="Voicemod Logo"
         aspect-ratio="1"
         id="voicemodLogo"
@@ -14,10 +14,10 @@
   </v-app-bar>
 </template>
 <script>
-import CustomIcon from "@/components/CustomIcon";
+import Icon from "@/components/Icon";
 
 export default {
   name: "Navbar",
-  components: { CustomIcon },
+  components: { Icon },
 };
 </script>

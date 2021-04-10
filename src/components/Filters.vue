@@ -9,7 +9,7 @@
         @change="searchByNameApps"
         @input="searchByNameApps"
       >
-        <CustomIcon
+        <Icon
           alt="Search apps by name"
           slot="prepend-inner"
           id="searchIcon"
@@ -17,8 +17,8 @@
           maxWidth="40px"
           customClass="pt-0 mt-2 ml-1"
           name="search.svg"
-        ></CustomIcon>
-        <CustomIcon
+        ></Icon>
+        <Icon
           alt="Close search apps by name"
           slot="append"
           id="searchClose"
@@ -27,7 +27,7 @@
           customClass="clickable pt-0 mt-1"
           name="search-close.svg"
           @clickAction="clearSearch"
-        ></CustomIcon>
+        ></Icon>
       </v-text-field>
     </v-col>
     <v-col class="d-flex" cols="3" md="3" sm="4">
@@ -39,7 +39,7 @@
         outlined
         @change="searchByTagApps"
       >
-        <CustomIcon
+        <Icon
           alt="Filter apps by name"
           slot="prepend-inner"
           id="filterIcon"
@@ -47,8 +47,8 @@
           maxWidth="30px"
           customClass="pa-0 mt-4 mr-1"
           name="filter.svg"
-        ></CustomIcon>
-        <CustomIcon
+        ></Icon>
+        <Icon
           alt="Filter apps"
           slot="append"
           id="selectArrowTags"
@@ -56,7 +56,7 @@
           maxWidth="15px"
           customClass="pa-0 mt-1"
           name="select-arrow.svg"
-        ></CustomIcon>
+        ></Icon>
       </v-select>
     </v-col>
     <v-col class="d-flex" cols="3" md="3" sm="4">
@@ -69,7 +69,7 @@
         outlined
         @change="sortApps"
       >
-        <CustomIcon
+        <Icon
           alt="Order apps"
           slot="prepend-inner"
           id="orderIcon"
@@ -77,8 +77,8 @@
           maxWidth="30px"
           customClass="pa-0 mt-4 mr-1"
           name="order.svg"
-        ></CustomIcon>
-        <CustomIcon
+        ></Icon>
+        <Icon
           alt="Sort apps"
           slot="append"
           id="selectArrowSort"
@@ -86,12 +86,12 @@
           maxWidth="15px"
           customClass="pa-0 mt-1"
           name="select-arrow.svg"
-        ></CustomIcon>
+        ></Icon>
       </v-select>
     </v-col>
     <v-col class="d-flex" cols="3" md="3" sm="4">
       <v-hover v-slot="{ hover }">
-        <CustomIcon
+        <Icon
           alt="Select random app"
           id="selectRandomApp"
           maxHeight="30px"
@@ -99,7 +99,7 @@
           :customClass="`${hover ? 'random-hover' : ''} pa-0 mt-4 clickable`"
           name="button-random.svg"
           @clickAction="selectRandomApp()"
-        ></CustomIcon>
+        ></Icon>
       </v-hover>
     </v-col>
   </v-row>
@@ -107,12 +107,12 @@
 
 <script>
 import { mapState, mapGetters } from "vuex";
-import CustomIcon from "@/components/CustomIcon";
+import Icon from "@/components/Icon";
 
 export default {
   name: "Grid",
   components: {
-    CustomIcon,
+    Icon,
   },
   data() {
     return {
