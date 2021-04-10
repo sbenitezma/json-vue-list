@@ -2,7 +2,7 @@ import { createLocalVue, mount } from "@vue/test-utils";
 import Vuex from "vuex";
 import Vuetify from "vuetify";
 import Navbar from "@/components/Navbar.vue";
-import CustomImage from "@/components/CustomImage";
+import CustomIcon from "@/components/CustomIcon.vue";
 
 // add the 2 lines below
 const localVue = createLocalVue();
@@ -34,11 +34,11 @@ describe.only("Navbar.vue", () => {
     expect(toolbarClass.element).toMatchSnapshot();
   });
 
-  it("Navbar contains and renders CustomImage component", () => {
-    expect(wrapper.findComponent(CustomImage).exists()).toBeTruthy();
+  it("Navbar contains and renders CustomIcon component", () => {
+    expect(wrapper.findComponent(CustomIcon).exists()).toBeTruthy();
   });
 
-  it("Navbar contains and renders CustomImage classes", () => {
+  it("Navbar contains and renders CustomIcon classes", () => {
     let imageClass = wrapper.find(".v-image");
     expect(imageClass.exists()).toBeTruthy();
     expect(imageClass.element).toMatchSnapshot();

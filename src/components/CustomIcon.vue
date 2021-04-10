@@ -20,6 +20,7 @@
 <template>
   <v-hover v-slot:default="{ hover }">
     <v-img
+      :alt="alt"
       aspect-ratio="1"
       :class="`${customClass} custom-icon`"
       contain
@@ -27,6 +28,7 @@
       :height="maxHeight"
       :width="maxWidth"
       :src="getIcon(name, hover)"
+      transition="scale-transition"
       @click="setAction"
     >
     </v-img>
@@ -34,8 +36,12 @@
 </template>
 <script>
 export default {
-  name: "Icon",
+  name: "CustomIcon",
   props: {
+    alt: {
+      type: String,
+      required: true,
+    },
     color: {
       type: String,
       default: "primary",
@@ -75,10 +81,10 @@ export default {
      * @returns {string|*}
      */
     getIcon(name, hover) {
-      let appIcon = require(`@/assets/icons/${name}.svg`);
+      let appIcon = require(`@/assets/icons/${name}`);
       if (appIcon) {
         if (hover && this.hoverIcon) {
-          appIcon = require(`@/assets/icons/${this.hoverIcon}.svg`);
+          appIcon = require(`@/assets/icons/${this.hoverIcon}`);
         }
         return appIcon;
       } else {

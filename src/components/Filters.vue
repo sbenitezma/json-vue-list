@@ -10,20 +10,22 @@
         @input="searchByNameApps"
       >
         <CustomIcon
+          alt="Search apps by name"
           slot="prepend-inner"
           id="searchIcon"
           maxHeight="40px"
           maxWidth="40px"
           customClass="pt-0 mt-2 ml-1"
-          name="search"
+          name="search.svg"
         ></CustomIcon>
         <CustomIcon
+          alt="Close search apps by name"
           slot="append"
           id="searchClose"
           maxHeight="10px"
           maxWidth="10px"
           customClass="clickable pt-0 mt-1"
-          name="search-close"
+          name="search-close.svg"
           @clickAction="clearSearch"
         ></CustomIcon>
       </v-text-field>
@@ -38,25 +40,28 @@
         @change="searchByTagApps"
       >
         <CustomIcon
+          alt="Filter apps by name"
           slot="prepend-inner"
           id="filterIcon"
           maxHeight="30px"
           maxWidth="30px"
           customClass="pa-0 mt-4 mr-1"
-          name="filter"
+          name="filter.svg"
         ></CustomIcon>
         <CustomIcon
+          alt="Filter apps"
           slot="append"
-          id="selectArrow"
+          id="selectArrowTags"
           maxHeight="15px"
           maxWidth="15px"
           customClass="pa-0 mt-1"
-          name="select-arrow"
+          name="select-arrow.svg"
         ></CustomIcon>
       </v-select>
     </v-col>
     <v-col class="d-flex" cols="3" md="3" sm="4">
       <v-select
+        alt="Sort apps"
         id="sortApps"
         class="ml-0 pl-0"
         :items="orderBy"
@@ -65,31 +70,34 @@
         @change="sortApps"
       >
         <CustomIcon
+          alt="Order apps"
           slot="prepend-inner"
           id="orderIcon"
           maxHeight="30px"
           maxWidth="30px"
           customClass="pa-0 mt-4 mr-1"
-          name="order"
+          name="order.svg"
         ></CustomIcon>
         <CustomIcon
+          alt="Sort apps"
           slot="append"
-          id="selectArrow"
+          id="selectArrowSort"
           maxHeight="15px"
           maxWidth="15px"
           customClass="pa-0 mt-1"
-          name="select-arrow"
+          name="select-arrow.svg"
         ></CustomIcon>
       </v-select>
     </v-col>
     <v-col class="d-flex" cols="3" md="3" sm="4">
       <v-hover v-slot="{ hover }">
         <CustomIcon
+          alt="Select random app"
           id="selectRandomApp"
           maxHeight="30px"
           maxWidth="30px"
           :customClass="`${hover ? 'random-hover' : ''} pa-0 mt-4 clickable`"
-          name="button-random"
+          name="button-random.svg"
           @clickAction="selectRandomApp()"
         ></CustomIcon>
       </v-hover>

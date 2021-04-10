@@ -27,27 +27,29 @@
         >
           <CustomIcon
             v-if="item.favourite"
+            alt="Set favourite app"
             id="favouriteGrid"
             maxHeight="30px"
             maxWidth="30px"
             customClass="like-action clickable ma-3"
-            name="voice-favourite"
+            name="voice-favourite.svg"
             @clickAction="setFavourite()"
           ></CustomIcon>
           <CustomIcon
             v-else
+            alt="Set favourite off"
             id="favouriteOffGrid"
             maxHeight="30px"
             maxWidth="30px"
             customClass="like-action clickable ma-3"
-            name="voice-favourite-off"
-            hover-icon="voice-favourite"
+            name="voice-favourite-off.svg"
+            hover-icon="voice-favourite.svg"
             @clickAction="setFavourite()"
           ></CustomIcon>
           <div @click="setActive()">
             <div class="d-flex justify-space-between">
               <v-avatar class="ma-0" size="80" tile>
-                <AppImage
+                <CustomIcon
                   :alt="item.name"
                   id="voiceAppImage"
                   :name="item.icon"
@@ -71,10 +73,9 @@
 </template>
 <script>
 import CustomIcon from "@/components/CustomIcon";
-import AppImage from "@/components/CustomImage";
 export default {
   name: "Card",
-  components: { CustomIcon, AppImage },
+  components: { CustomIcon },
   props: {
     item: {
       type: Object,

@@ -10,20 +10,22 @@
           hide-details
         >
           <CustomIcon
+            alt="Search app"
             slot="prepend-inner"
             id="searchIcon"
             maxHeight="40px"
             maxWidth="40px"
             customClass="pt-0 mt-2 ml-1"
-            name="search"
+            name="search.svg"
           ></CustomIcon>
           <CustomIcon
+            alt="Close search"
             slot="append"
             id="searchClose"
             maxHeight="10px"
             maxWidth="10px"
             customClass="clickable pt-0 mt-1"
-            name="search-close"
+            name="search-close.svg"
             @clickAction="clearSearch()"
           ></CustomIcon>
         </v-text-field>
@@ -56,12 +58,13 @@
           <template v-slot:item.favourite="props">
             <template v-if="props.item">
               <CustomIcon
+                alt="Set favourite off"
                 custom-class="ma-3 clickable"
                 maxHeight="20px"
                 maxWidth="20px"
                 v-if="props.item.favourite"
-                hover-icon="voice-favourite-off"
-                name="voice-favourite"
+                hover-icon="voice-favourite-off.svg"
+                name="voice-favourite.svg"
                 @clickAction="setFavourite(props.item)"
               ></CustomIcon>
             </template>
@@ -69,7 +72,7 @@
           <template v-slot:item.icon="{ item }">
             <v-row no-gutters>
               <v-col cols="12" md="12">
-                <AppImage
+                <CustomIcon
                   :alt="item.name"
                   id="voiceAppImage"
                   :name="item.icon"
@@ -88,11 +91,10 @@
 <script>
 import { mapGetters } from "vuex";
 import CustomIcon from "@/components/CustomIcon";
-import AppImage from "@/components/CustomImage";
 
 export default {
   name: "Table",
-  components: { CustomIcon, AppImage },
+  components: { CustomIcon },
   computed: {
     ...mapGetters(["favouriteApps"]),
   },
@@ -150,7 +152,7 @@ export default {
      * @returns {string|*}
      */
     getAppIcon(item) {
-      let appIcon = require(`@/assets/images/${item.icon}`);
+      let appIcon = require(`@/assets/icons/${item.icon}`);
       if (appIcon) {
         return appIcon;
       } else {
