@@ -34,11 +34,11 @@ describe.only("Navbar.vue", () => {
     expect(toolbarClass.element).toMatchSnapshot();
   });
 
-  it("Renders CustomImage component", () => {
+  it("Navbar contains and renders CustomImage component", () => {
     expect(wrapper.findComponent(CustomImage).exists()).toBeTruthy();
   });
 
-  it("Should render CustomImage classes", () => {
+  it("Navbar contains and renders CustomImage classes", () => {
     let imageClass = wrapper.find(".v-image");
     expect(imageClass.exists()).toBeTruthy();
     expect(imageClass.element).toMatchSnapshot();
