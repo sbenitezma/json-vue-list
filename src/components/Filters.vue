@@ -2,6 +2,7 @@
   <v-row>
     <v-col class="d-flex" cols="3" md="3" sm="4">
       <v-text-field
+        id="searchAppByNameGrid"
         slot="activator"
         v-model="appName"
         outlined
@@ -32,7 +33,7 @@
     </v-col>
     <v-col class="d-flex" cols="3" md="3" sm="4">
       <v-select
-        id="selectTag"
+        id="searchByTagGrid"
         class="ml-0 pl-0"
         :items="getAppsTags"
         label="Tag"
@@ -62,7 +63,7 @@
     <v-col class="d-flex" cols="3" md="3" sm="4">
       <v-select
         alt="Sort apps"
-        id="sortApps"
+        id="sortAppsGrid"
         class="ml-0 pl-0"
         :items="orderBy"
         label="Sort"
@@ -110,7 +111,7 @@ import { mapState, mapGetters } from "vuex";
 import Icon from "@/components/Icon";
 
 export default {
-  name: "Grid",
+  name: "Filters",
   components: {
     Icon,
   },

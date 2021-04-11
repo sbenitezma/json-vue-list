@@ -1,7 +1,8 @@
 import { createLocalVue, shallowMount } from "@vue/test-utils";
 import Vuex from "vuex";
 import Vuetify from "vuetify";
-import { getters } from "@/store/index";
+import { getters } from "@/store/getters";
+import { mutations } from "@/store/mutations";
 
 import Filters from "@/components/Filters.vue";
 import Icon from "@/components/Icon.vue";
@@ -63,10 +64,12 @@ describe("Filters.vue", () => {
           active: false,
         },
       ],
+      appName: "test",
     };
     store = new Vuex.Store({
       state,
       getters,
+      mutations,
       vuetify,
       localVue,
     });
@@ -84,5 +87,23 @@ describe("Filters.vue", () => {
   it("Renders Icon component", () => {
     wrapper = shallowMount(Filters, { store, localVue, vuetify });
     expect(wrapper.findComponent(Icon).exists()).toBeTruthy();
+  });
+
+  it("Test component method clearSearch", async () => {
+    wrapper.vm.clearSearch();
+    expect(wrapper.vm.appName).toBe("");
+  });
+
+  it("Test component method searchByNameApps", async () => {
+    let name = "device";
+    wrapper.vm.searchByNameApps(name);
+    expect(wrapper.vm.appName).toBe("device");
+  });
+
+  it("Test component method searchByTagApps", async () => {
+    let tag = "human";
+    wrapper.vm.searchByTagApps(tag);
+    const activeApp = getters.activeApp(state);
+    expect(activeApp).toEqual(state.activeApp);
   });
 });

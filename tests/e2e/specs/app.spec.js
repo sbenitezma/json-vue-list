@@ -3,7 +3,16 @@ describe("Display Voice Apps Application", () => {
     // visit Voices App
     cy.visit("/");
   });
+  afterEach(() => {
+    cy.eyesClose();
+  });
   it("Should render voices app", () => {
+    cy.eyesOpen({
+      appName: "My Json Vue List",
+      testName: "Voices App",
+      browser: { width: 1920, height: 1080 },
+    });
+    cy.eyesCheckWindow("Main Page");
     // Render navbar
     cy.get("#voicemodLogo").should("be.visible");
     // Render tabs and active tab

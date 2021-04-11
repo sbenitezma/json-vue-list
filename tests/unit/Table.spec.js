@@ -1,7 +1,7 @@
 import { createLocalVue, shallowMount } from "@vue/test-utils";
 import Vuex from "vuex";
 import Vuetify from "vuetify";
-import { getters } from "@/store/index";
+import { getters } from "@/store/getters";
 
 import Table from "@/components/Table.vue";
 import Icon from "@/components/Icon.vue";

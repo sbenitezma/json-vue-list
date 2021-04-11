@@ -2,9 +2,8 @@ import { createLocalVue, shallowMount } from "@vue/test-utils";
 import Vuex from "vuex";
 import Vuetify from "vuetify";
 import Card from "@/components/Card.vue";
-
-const localVue = createLocalVue();
-localVue.use(Vuex);
+import { getters } from "@/store/getters";
+import { mutations } from "@/store/mutations";
 
 describe("Card.vue", () => {
   const localVue = createLocalVue();
@@ -19,14 +18,46 @@ describe("Card.vue", () => {
     name: "Alien",
     icon: "VoicesVoiceIcon01.png",
     tags: ["robotic"],
+    favourite: true,
+    active: false,
   };
 
   vuetify = new Vuetify();
   localVue.use(vuetify);
-
+  localVue.use(Vuex);
+  state = {
+    activeApp: {
+      id: "alien",
+      name: "Alien",
+      icon: "VoicesVoiceIcon01.png",
+      tags: ["robotic"],
+      favourite: true,
+      active: true,
+    },
+    originApps: [
+      {
+        id: "alien",
+        name: "Alien",
+        icon: "VoicesVoiceIcon01.png",
+        tags: ["robotic"],
+        favourite: true,
+        active: true,
+      },
+      {
+        id: "android",
+        name: "Android",
+        icon: "VoicesVoiceIcon02.png",
+        tags: ["human"],
+        favourite: true,
+        active: false,
+      },
+    ],
+  };
   beforeEach(() => {
     store = new Vuex.Store({
       state,
+      getters,
+      mutations,
     });
     wrapper = shallowMount(Card, {
       store,
@@ -49,19 +80,5 @@ describe("Card.vue", () => {
   it("Should have correct object type props", () => {
     const app = wrapper.vm.$options.props.item;
     expect(app.type).toBe(Object);
-  });
-
-  it("Test component method TruncateString", async () => {
-    wrapper.setProps({
-      item: {
-        id: item.id,
-        name: "Alien Versus Predator is a good movie",
-        icon: item.icon,
-        tags: item.tags,
-      },
-    });
-    await wrapper.vm.$nextTick();
-    let truncatedText = wrapper.vm.truncateString(wrapper.vm.item.name, 20);
-    expect(truncatedText).toBe("Alien Versus Predato...");
   });
 });

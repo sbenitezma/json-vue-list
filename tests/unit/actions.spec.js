@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import { actions } from "@/store/index";
+import { actions } from "@/store/actions";
 
 describe("Store actions", () => {
   Vue.use(Vuex);

@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import { getters } from "@/store/index";
+import { getters } from "@/store/getters";
 
 describe("Store Getters", () => {
   Vue.use(Vuex);
