@@ -12,7 +12,6 @@ The goal of this project is to display a list of a given apps provided by a mock
 - Sort apps by name ascending or descending
 - Display favourites apps
 
-
 ## Main Packages
 * Vue-cli
 * Vuetify
@@ -131,7 +130,45 @@ Component to display favourite apps in a table format
 ### TabsMenu
 Component to display menu tabs with "All Apps / Favourite Apps"
 
-##Test Coverage
+
+## Installation
+
+### Project setup
+```
+yarn install
+```
+
+#### Compiles and hot-reloads for development
+```
+yarn serve
+```
+
+#### Compiles and minifies for production
+```
+yarn build
+```
+
+#### Run your unit tests
+```
+yarn test:unit
+```
+
+#### Run your end-to-end tests
+```
+yarn test:e2e
+```
+
+#### Lints and fixes files
+```
+yarn lint
+```
+
+#### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
+
+
+
+## Test Coverage
 ````
  PASS  tests/unit/TabsMenu.spec.js
  PASS  tests/unit/Navbar.spec.js
@@ -174,39 +211,4 @@ Tests:       30 passed, 30 total
 Snapshots:   3 passed, 3 total
 Time:        8.038s
 Ran all test suites.
-
 ````
-##Installation
-
-### Project setup
-```
-yarn install
-```
-
-#### Compiles and hot-reloads for development
-```
-yarn serve
-```
-
-#### Compiles and minifies for production
-```
-yarn build
-```
-
-#### Run your unit tests
-```
-yarn test:unit
-```
-
-#### Run your end-to-end tests
-```
-yarn test:e2e
-```
-
-#### Lints and fixes files
-```
-yarn lint
-```
-
-#### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
