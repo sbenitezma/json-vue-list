@@ -9,23 +9,25 @@
           single-line
           hide-details
         >
-          <CustomIcon
+          <Icon
+            alt="Search app"
             slot="prepend-inner"
-            id="searchIcon"
+            id="searchIconTable"
             maxHeight="40px"
             maxWidth="40px"
             customClass="pt-0 mt-2 ml-1"
-            name="search"
-          ></CustomIcon>
-          <CustomIcon
+            name="search.svg"
+          ></Icon>
+          <Icon
+            alt="Close search"
             slot="append"
-            id="searchClose"
+            id="searchCloseTable"
             maxHeight="10px"
             maxWidth="10px"
             customClass="clickable pt-0 mt-1"
-            name="search-close"
+            name="search-close.svg"
             @clickAction="clearSearch()"
-          ></CustomIcon>
+          ></Icon>
         </v-text-field>
       </v-col>
     </v-row>
@@ -55,23 +57,25 @@
           </template>
           <template v-slot:item.favourite="props">
             <template v-if="props.item">
-              <CustomIcon
+              <Icon
+                alt="Set favourite off"
                 custom-class="ma-3 clickable"
+                id="favouriteOffTable"
                 maxHeight="20px"
                 maxWidth="20px"
                 v-if="props.item.favourite"
-                hover-icon="voice-favourite-off"
-                name="voice-favourite"
+                hover-icon="voice-favourite-off.svg"
+                name="voice-favourite.svg"
                 @clickAction="setFavourite(props.item)"
-              ></CustomIcon>
+              ></Icon>
             </template>
           </template>
           <template v-slot:item.icon="{ item }">
             <v-row no-gutters>
               <v-col cols="12" md="12">
-                <AppImage
+                <Icon
                   :alt="item.name"
-                  id="voiceAppImage"
+                  :id="`voiceAppImage-${item.id}`"
                   :name="item.icon"
                   max-height="50px"
                   max-width="50px"
@@ -87,12 +91,11 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
-import CustomIcon from "@/components/CustomIcon";
-import AppImage from "@/components/CustomImage";
+import Icon from "@/components/Icon";
 
 export default {
   name: "Table",
-  components: { CustomIcon, AppImage },
+  components: { Icon },
   computed: {
     ...mapGetters(["favouriteApps"]),
   },
@@ -150,7 +153,7 @@ export default {
      * @returns {string|*}
      */
     getAppIcon(item) {
-      let appIcon = require(`@/assets/images/${item.icon}`);
+      let appIcon = require(`@/assets/icons/${item.icon}`);
       if (appIcon) {
         return appIcon;
       } else {

@@ -25,31 +25,33 @@
           max-width="350"
           max-height="350"
         >
-          <CustomIcon
+          <Icon
             v-if="item.favourite"
-            id="favouriteGrid"
+            alt="Set favourite app"
+            :id="`favouriteGrid-${item.id}`"
             maxHeight="30px"
             maxWidth="30px"
             customClass="like-action clickable ma-3"
-            name="voice-favourite"
+            name="voice-favourite.svg"
             @clickAction="setFavourite()"
-          ></CustomIcon>
-          <CustomIcon
+          ></Icon>
+          <Icon
             v-else
-            id="favouriteOffGrid"
+            alt="Set favourite off"
+            :id="`favouriteOffGrid-${item.id}`"
             maxHeight="30px"
             maxWidth="30px"
             customClass="like-action clickable ma-3"
-            name="voice-favourite-off"
-            hover-icon="voice-favourite"
+            name="voice-favourite-off.svg"
+            hover-icon="voice-favourite.svg"
             @clickAction="setFavourite()"
-          ></CustomIcon>
+          ></Icon>
           <div @click="setActive()">
             <div class="d-flex justify-space-between">
               <v-avatar class="ma-0" size="80" tile>
-                <AppImage
+                <Icon
                   :alt="item.name"
-                  id="voiceAppImage"
+                  :id="`voiceAppImage-${item.id}`"
                   :name="item.icon"
                   max-height="80px"
                   max-width="80px"
@@ -70,28 +72,16 @@
   </v-row>
 </template>
 <script>
-import CustomIcon from "@/components/CustomIcon";
-import AppImage from "@/components/CustomImage";
+import Icon from "@/components/Icon";
 export default {
   name: "Card",
-  components: { CustomIcon, AppImage },
+  components: { Icon },
   props: {
     item: {
       type: Object,
       required: true,
     },
-    id: {
-      type: [String, Number],
-      required: true,
-    },
   },
-  data() {
-    return {
-      icons: ["mdi-rewind", "mdi-play", "mdi-fast-forward"],
-      transparent: "rgba(255, 255, 255, 0)",
-    };
-  },
-  created() {},
   methods: {
     /**
      * Short too long strings

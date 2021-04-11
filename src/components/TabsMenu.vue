@@ -15,15 +15,17 @@
         <v-card v-else>
           <v-row no-gutters>
             <v-col cols="12" md="12">
-              <v-card-title class="headline ml-2">
+              <v-card-title id="activeVoiceAppTitle" class="headline ml-2">
                 Active Voice App
               </v-card-title>
               <v-card-text>
                 <div v-if="!activeApp">
-                  <span class="body ml-2">No active app selected</span>
+                  <span class="body ml-2" id="activeVoiceAppText"
+                    >No active app selected</span
+                  >
                 </div>
                 <div v-else>
-                  <Card :item="activeApp" :id="activeApp.id" />
+                  <Card :item="activeApp" />
                 </div>
               </v-card-text>
             </v-col>
@@ -31,7 +33,7 @@
           <v-row no-gutters>
             <v-col cols="12" md="12">
               <v-card-title>
-                <span class="headline ml-2">
+                <span class="headline ml-2" id="showingAppsText">
                   Showing ({{ showApps.length }}/{{ originApps.length }})
                 </span>
               </v-card-title>

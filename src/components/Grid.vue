@@ -1,7 +1,7 @@
 <template>
   <v-col cols="12" md="12">
     <Filters />
-    <v-row>
+    <v-row id="showAppsGrid">
       <v-col
         cols="12"
         lg="2"
