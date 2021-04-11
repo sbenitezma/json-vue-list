@@ -3,6 +3,7 @@
     <v-row>
       <v-col cols="6" md="6">
         <v-text-field
+          id="searchAppNameTable"
           v-model="search"
           outlined
           label="Search"
