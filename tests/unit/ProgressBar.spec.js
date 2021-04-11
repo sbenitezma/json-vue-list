@@ -2,7 +2,7 @@ import { createLocalVue, mount } from "@vue/test-utils";
 import Vuetify from "vuetify";
 import ProgressBar from "@/components/ProgressBar.vue";
 
-describe.only("ProgressBar.vue", () => {
+describe("ProgressBar.vue", () => {
   const localVue = createLocalVue();
   let vuetify;
   let wrapper;

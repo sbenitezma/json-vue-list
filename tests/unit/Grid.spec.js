@@ -5,7 +5,7 @@ import Grid from "@/components/Grid.vue";
 import Card from "@/components/Card.vue";
 import Filters from "@/components/Filters.vue";
 
-describe.only("Grid.vue", () => {
+describe("Grid.vue", () => {
   const localVue = createLocalVue();
   let state;
   let store;

@@ -3,7 +3,7 @@ import Vuetify from "vuetify";
 import Navbar from "@/components/Navbar.vue";
 import Icon from "@/components/Icon.vue";
 
-describe.only("Navbar.vue", () => {
+describe("Navbar.vue", () => {
   const localVue = createLocalVue();
   let vuetify;
   let wrapper;

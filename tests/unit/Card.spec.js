@@ -6,7 +6,7 @@ import Card from "@/components/Card.vue";
 const localVue = createLocalVue();
 localVue.use(Vuex);
 
-describe.only("Card.vue", () => {
+describe("Card.vue", () => {
   const localVue = createLocalVue();
   let item;
   let state;

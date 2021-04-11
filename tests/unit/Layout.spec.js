@@ -4,7 +4,7 @@ import Vuetify from "vuetify";
 import Layout from "@/components/Layout.vue";
 import TabsMenu from "@/components/TabsMenu";
 
-describe.only("Layout.vue", () => {
+describe("Layout.vue", () => {
   const localVue = createLocalVue();
   let vuetify;
   let wrapper;
