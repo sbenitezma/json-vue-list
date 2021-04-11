@@ -1,8 +1,8 @@
 <template>
   <div>
     <v-tabs v-model="tab" background-color="transparent" grow>
-      <v-tab v-for="item in items" :key="item">
-        {{ item }}
+      <v-tab v-for="item in items" :key="item.id" :id="item.id">
+        {{ item.name }}
       </v-tab>
     </v-tabs>
     <v-tabs-items v-model="tab">
@@ -24,7 +24,7 @@
                     >No active app selected</span
                   >
                 </div>
-                <div v-else>
+                <div v-else id="activeApp">
                   <Card :item="activeApp" />
                 </div>
               </v-card-text>
@@ -82,7 +82,16 @@ export default {
   },
   data: () => ({
     tab: null,
-    items: ["Voice Apps", "Favourites Voice Apps"],
+    items: [
+      {
+        id: "allApps",
+        name: "Voice Apps",
+      },
+      {
+        id: "favApps",
+        name: "Favourites Voice Apps",
+      },
+    ],
   }),
   methods: {},
 };

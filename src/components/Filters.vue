@@ -1,5 +1,5 @@
 <template>
-  <v-row>
+  <v-row id="filtersSectionGrid">
     <v-col class="d-flex" cols="3" md="3" sm="4">
       <v-text-field
         id="searchAppByNameGrid"
