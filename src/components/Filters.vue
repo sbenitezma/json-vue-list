@@ -130,35 +130,35 @@ export default {
   methods: {
     clearSearch() {
       this.appName = "";
-      this.$store.commit("clearAppName");
+      this.$store.dispatch("clearAppName");
     },
     searchByNameApps(name) {
       if (name.length === 0) {
         this.clearSearch();
       } else {
         this.appName = name;
-        this.$store.commit("setFilters", {
+        this.$store.dispatch("setFilters", {
           name: this.appName,
         });
       }
     },
     searchByTagApps(tag) {
       if (tag !== "") {
-        this.$store.commit("setFilters", {
+        this.$store.dispatch("setFilters", {
           tag: tag,
         });
       } else {
-        this.$store.commit("refreshShowApps");
+        this.$store.dispatch("refreshShowApps");
       }
     },
     selectRandomApp() {
-      this.$store.commit("setFilters", {
+      this.$store.dispatch("setFilters", {
         order: this.orderFilter,
       });
-      this.$store.commit("setActiveRandomApp");
+      this.$store.dispatch("setActiveRandomApp");
     },
     sortApps(order) {
-      this.$store.commit("setFilters", {
+      this.$store.dispatch("setFilters", {
         order: order,
       });
       this.$store.getters.sortAppsByName(order);

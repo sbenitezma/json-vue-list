@@ -100,13 +100,13 @@ export default {
      * Set Favourite app
      */
     setFavourite() {
-      this.$store.commit("setFavourite", this.item);
+      this.$store.dispatch("setFavourite", this.item);
     },
     /**
      * Set active app
      */
     setActive() {
-      this.$store.commit("setActive", this.item);
+      this.$store.dispatch("setActive", this.item);
     },
   },
 };

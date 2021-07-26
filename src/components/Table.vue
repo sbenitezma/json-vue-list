@@ -166,13 +166,13 @@ export default {
      * @param item
      */
     setFavourite(item) {
-      this.$store.commit("setFavourite", item);
+      this.$store.dispatch("setFavourite", item);
     },
     /**
      * Set active app
      */
     setActive(item) {
-      this.$store.commit("setActive", item);
+      this.$store.dispatch("setActive", item);
     },
   },
 };
